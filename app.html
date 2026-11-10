@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HEATS-App laden</title>
+<meta name="theme-color" content="#0b100f">
+<style>
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#0b100f; color:#fff; font-family:-apple-system, Helvetica, Arial, sans-serif; text-align:center; padding:24px; box-sizing:border-box; }
+  .bahnen { display:flex; gap:8px; justify-content:center; margin-bottom:18px; }
+  .bahnen span { width:14px; height:56px; border-radius:4px; transform:skewX(-18deg); }
+  h1 { font-size:44px; margin:0 0 6px; letter-spacing:1px; } h1 b { color:#FF7A45; }
+  .slogan { color:#9aa5a2; margin:0 0 30px; }
+  .karte { background:#171d1c; border-radius:22px; padding:26px; max-width:420px; margin:0 auto; }
+  .karte h2 { margin:0 0 8px; font-size:24px; }
+  .karte p { color:#9aa5a2; margin:0 0 18px; font-size:17px; line-height:1.5; }
+  .knopf { display:inline-block; background:#7FE0C0; color:#0b100f; text-decoration:none; font-weight:800; padding:12px 22px; border-radius:999px; margin:4px; }
+  .knopf.zweit { background:transparent; color:#7FE0C0; border:1px solid #7FE0C0; }
+</style>
+<script>
+  // Sobald die App in den Stores ist, hier die Links eintragen – der QR-Code bleibt gleich.
+  var APP_STORE = '';    // z. B. 'https://apps.apple.com/de/app/heats/id1234567890'
+  var GOOGLE_PLAY = '';  // z. B. 'https://play.google.com/store/apps/details?id=de.heatsapp'
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var android = /Android/i.test(ua);
+  if (ios && APP_STORE) location.replace(APP_STORE);
+  else if (android && GOOGLE_PLAY) location.replace(GOOGLE_PLAY);
+</script>
+</head>
+<body>
+<div>
+  <div class="bahnen"><span style="background:#FF7A45"></span><span style="background:#7FE0C0"></span><span style="background:#A99BFF"></span></div>
+  <h1>HE<b>A</b>TS</h1>
+  <p class="slogan">Sport zusammen. In deiner Stadt.</p>
+  <div class="karte">
+    <h2>🚀 Bald verfügbar!</h2>
+    <p>Die HEATS-App kommt bald in den App Store und zu Google Play. Schreib uns kurz – wir sagen dir Bescheid, sobald du loslegen kannst.</p>
+    <a class="knopf" href="mailto:info@heats-app.de?subject=Sag%20mir%20Bescheid%2C%20wenn%20HEATS%20da%20ist&body=Hi%20HEATS-Team%2C%20ich%20will%20dabei%20sein%21">Benachrichtige mich</a>
+    <a class="knopf zweit" href="index.html">Mehr über HEATS</a>
+  </div>
+</div>
+</body>
+</html>
