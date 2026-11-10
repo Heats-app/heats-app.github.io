@@ -90,15 +90,39 @@
   .schritt:nth-child(2)::before{background:var(--m)} .schritt:nth-child(3)::before{background:var(--l)} .schritt:nth-child(4)::before{background:#fff}
   .schritt h3 { margin:0 0 6px; font-size:20px; } .schritt p { margin:0; color:var(--grau); }
 
-  .videos { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  @media (max-width:820px){ .videos { grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:72%; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:10px; } .video { scroll-snap-align:center; } }
-  .video { margin:0; position:relative; border-radius:26px; overflow:hidden; aspect-ratio:9/16; background:var(--karte); border:1px solid rgba(255,255,255,.08); cursor:pointer; }
+  /* Video-Reel */
+  .v-kopf { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:26px; }
+  .v-kopf .intro { margin:0; }
+  .filter { display:flex; gap:8px; flex-wrap:wrap; }
+  .filter button { font:inherit; font-size:14px; font-weight:700; color:var(--grau); background:var(--karte); border:1px solid rgba(255,255,255,.1); padding:8px 16px; border-radius:999px; cursor:pointer; transition:all .2s; }
+  .filter button.an { color:#0b100f; background:var(--o); border-color:var(--o); }
+  .reel-rahmen { position:relative; }
+  .reel { display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding:24px calc(50% - 150px) 30px; scrollbar-width:none; }
+  .reel::-webkit-scrollbar { display:none; }
+  .video { flex:0 0 300px; margin:0; position:relative; border-radius:28px; overflow:hidden; aspect-ratio:9/16; background:var(--karte); border:1px solid rgba(255,255,255,.08); cursor:pointer; scroll-snap-align:center; transform:scale(.88); opacity:.45; filter:saturate(.6); transition:transform .45s cubic-bezier(.2,.8,.2,1), opacity .45s, filter .45s, box-shadow .45s; }
+  .video.mitte { transform:scale(1); opacity:1; filter:none; box-shadow:0 30px 70px rgba(0,0,0,.55), 0 0 0 2px var(--farbe, var(--o)), 0 0 60px -10px var(--farbe, var(--o)); }
+  .video.weg { display:none; }
+  @media (max-width:520px){ .video { flex-basis:74vw; } .reel { padding-inline:13vw; } }
   .video video { width:100%; height:100%; object-fit:cover; display:block; }
-  .video .play { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:70px; height:70px; border-radius:50%; border:0; background:rgba(255,255,255,.92); color:#0b100f; font-size:24px; padding-left:5px; cursor:pointer; box-shadow:0 10px 30px rgba(0,0,0,.4); transition:transform .2s, opacity .2s; }
-  .video:hover .play { transform:translate(-50%,-50%) scale(1.08); }
-  .video.laeuft .play { opacity:0; pointer-events:none; }
-  .video figcaption { position:absolute; left:0; right:0; bottom:0; padding:40px 18px 16px; font-weight:800; background:linear-gradient(transparent, rgba(0,0,0,.75)); }
-  .video.laeuft figcaption { opacity:0; transition:opacity .4s; }
+  .v-tag { position:absolute; top:14px; left:14px; z-index:2; font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#0b100f; background:var(--farbe, var(--o)); padding:5px 11px; border-radius:999px; }
+  .v-dauer { position:absolute; top:14px; right:14px; z-index:2; font-size:12px; font-weight:700; background:rgba(0,0,0,.55); backdrop-filter:blur(6px); padding:5px 10px; border-radius:999px; }
+  .v-ton { position:absolute; right:14px; bottom:128px; z-index:3; width:42px; height:42px; border-radius:50%; border:0; background:rgba(0,0,0,.55); backdrop-filter:blur(6px); color:#fff; font-size:18px; cursor:pointer; opacity:0; transition:opacity .3s; }
+  .video.mitte .v-ton { opacity:1; }
+  .video figcaption { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:60px 18px 20px; background:linear-gradient(transparent, rgba(0,0,0,.88) 45%); transition:opacity .4s; }
+  .video figcaption b { display:block; font-size:19px; line-height:1.2; margin-bottom:4px; }
+  .video figcaption span { display:block; color:#cfd7d4; font-size:14px; line-height:1.4; }
+  .video.ton figcaption { opacity:0; }
+  .v-balken { position:absolute; left:14px; right:14px; bottom:9px; height:3px; border-radius:3px; background:rgba(255,255,255,.18); z-index:3; overflow:hidden; }
+  .v-balken i { display:block; height:100%; width:0; background:var(--farbe, var(--o)); }
+  .pfeil { position:absolute; top:50%; z-index:5; transform:translateY(-50%); width:52px; height:52px; border-radius:50%; border:1px solid rgba(255,255,255,.15); background:rgba(21,27,26,.85); backdrop-filter:blur(8px); color:#fff; font-size:22px; cursor:pointer; transition:background .2s; }
+  .pfeil:hover { background:var(--o); color:#0b100f; }
+  .pfeil.l { left:calc(50% - 230px); } .pfeil.r { right:calc(50% - 230px); }
+  @media (max-width:760px){ .pfeil { display:none; } }
+  .punkte { display:flex; justify-content:center; gap:7px; }
+  .punkte button { width:8px; height:8px; padding:0; border:0; border-radius:99px; background:rgba(255,255,255,.22); cursor:pointer; transition:all .3s; }
+  .punkte button.an { width:26px; background:var(--o); }
+  .punkte button.weg { display:none; }
+  .v-hinweis { text-align:center; color:var(--grau); font-size:13px; margin-top:14px; }
   .features { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
   @media (max-width:900px){ .features { grid-template-columns:1fr 1fr; } }
   @media (max-width:560px){ .features { grid-template-columns:1fr; } }
@@ -140,11 +164,43 @@
   #bestaetigt .box { background:var(--karte); border-radius:26px; padding:30px; max-width:420px; text-align:center; border:1px solid rgba(127,224,192,.35); }
   #bestaetigt h2 { font-size:26px; margin:0 0 8px; } #bestaetigt p { color:var(--grau); margin:0 0 20px; }
   #bestaetigt button { background:var(--m); color:#0b100f; border:0; border-radius:999px; padding:12px 24px; font-weight:800; font-size:16px; cursor:pointer; }
+  /* Intro-Banner beim Öffnen */
+  #intro { position:fixed; inset:0; z-index:80; background:radial-gradient(circle at 50% 45%, #1a1210 0%, #070a0a 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; transition:opacity .7s ease, transform .9s cubic-bezier(.7,0,.3,1); }
+  #intro.weg { opacity:0; transform:scale(1.15); pointer-events:none; }
+  #intro .licht { position:absolute; width:70vmax; height:70vmax; border-radius:50%; filter:blur(80px); opacity:0; animation:licht 2.6s ease-out .3s forwards; }
+  #intro .licht.a { background:var(--o); left:-25vmax; top:-25vmax; } #intro .licht.b { background:var(--l); right:-25vmax; bottom:-25vmax; animation-delay:.5s; }
+  @keyframes licht { 50% { opacity:.35; } 100% { opacity:.18; } }
+  #intro .zeile-l { display:flex; align-items:center; gap:clamp(14px,3vw,30px); position:relative; }
+  #intro .ib { display:flex; gap:clamp(8px,1.6vw,16px); }
+  #intro .ib span { display:block; width:clamp(18px,3.4vw,34px); height:clamp(80px,15vw,150px); border-radius:8px; transform:skewX(-18deg) translateY(120vh); animation:bahn .8s cubic-bezier(.2,1.3,.4,1) forwards; }
+  #intro .ib span:nth-child(1){ background:var(--o); animation-delay:.15s; box-shadow:0 0 40px var(--o); }
+  #intro .ib span:nth-child(2){ background:var(--m); animation-delay:.3s; box-shadow:0 0 40px var(--m); }
+  #intro .ib span:nth-child(3){ background:var(--l); animation-delay:.45s; box-shadow:0 0 40px var(--l); }
+  @keyframes bahn { to { transform:skewX(-18deg) translateY(0); } }
+  #intro .iw { font-size:clamp(64px,14vw,168px); font-weight:900; font-style:italic; letter-spacing:2px; line-height:1; color:#fff; display:flex; }
+  #intro .iw i { font-style:inherit; display:inline-block; opacity:0; transform:translateX(60px) skewX(-12deg); filter:blur(10px); animation:buchst .55s cubic-bezier(.2,.9,.3,1) forwards; }
+  #intro .iw i:nth-child(1){animation-delay:.75s} #intro .iw i:nth-child(2){animation-delay:.83s} #intro .iw i:nth-child(3){animation-delay:.91s; color:var(--o); text-shadow:0 0 30px var(--o);} #intro .iw i:nth-child(4){animation-delay:.99s} #intro .iw i:nth-child(5){animation-delay:1.07s}
+  @keyframes buchst { to { opacity:1; transform:none; filter:none; } }
+  #intro .glanz { position:absolute; inset:-20px -40px; background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.55) 50%, transparent 60%); mix-blend-mode:overlay; transform:translateX(-120%); animation:glanz 1s ease-in-out 1.5s forwards; pointer-events:none; }
+  @keyframes glanz { to { transform:translateX(120%); } }
+  #intro .strich { height:6px; width:0; margin-top:18px; border-radius:6px; background:linear-gradient(90deg,var(--o),var(--m),var(--l)); box-shadow:0 0 24px rgba(255,122,69,.6); animation:strich .7s ease-out 1.25s forwards; }
+  @keyframes strich { to { width:min(70vw,560px); } }
+  #intro .slogan { margin-top:22px; font-size:clamp(17px,2.6vw,26px); font-weight:700; color:#dfe6e3; letter-spacing:.5px; opacity:0; transform:translateY(14px); animation:buchst .6s ease-out 1.6s forwards; }
+  #intro .slogan b { color:var(--m); }
+  @media (prefers-reduced-motion:reduce){ #intro { display:none; } }
   @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } .reveal{opacity:1;transform:none;} }
 </style>
 </head>
 <body>
 <script>document.documentElement.classList.add('js');if(/[?&]alle/.test(location.search))document.documentElement.classList.remove('js');setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('da')})},4000);</script>
+
+<div id="intro" aria-hidden="true">
+  <div class="licht a"></div><div class="licht b"></div>
+  <div class="zeile-l"><div class="ib"><span></span><span></span><span></span></div><div class="iw"><i>H</i><i>E</i><i>A</i><i>T</i><i>S</i></div><div class="glanz"></div></div>
+  <div class="strich"></div>
+  <div class="slogan">Sport zusammen. <b>In deiner Stadt.</b></div>
+</div>
+<script>(function(){var el=document.getElementById('intro');function weg(){if(!el||el.classList.contains('weg'))return;el.classList.add('weg');setTimeout(function(){el.remove()},900);}el.addEventListener('click',weg);setTimeout(weg,3000);})();</script>
 
 <div id="bestaetigt" role="dialog" aria-modal="true">
   <div class="box">
@@ -220,12 +276,29 @@
   <div class="wrap">
     <div class="kicker reveal">HEATS in Bewegung</div>
     <h2 class="reveal">So fühlt sich HEATS an</h2>
-    <p class="intro reveal">Echte Gruppen, echte Treffen, echte Leute aus deiner Stadt. Tipp auf ein Video und schau rein.</p>
-    <div class="videos">
-      <figure class="video reveal"><video src="HEATS-Webseite/videos/heats-werbung.mp4" poster="HEATS-Webseite/videos/heats-werbung.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
-      <figure class="video reveal"><video src="HEATS-Webseite/videos/heats-lebendig.mp4" poster="HEATS-Webseite/videos/heats-lebendig.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
-      <figure class="video reveal"><video src="HEATS-Webseite/videos/heats-community.mp4" poster="HEATS-Webseite/videos/heats-community.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
+    <div class="v-kopf reveal">
+      <p class="intro">Laufen, Radtour, Hyrox – zusammen statt allein. Wisch durch die Videos, tipp drauf für Ton.</p>
+      <div class="filter" role="tablist">
+        <button class="an" data-f="alle">Alle</button>
+        <button data-f="spot">Spots</button>
+        <button data-f="app">Die App</button>
+      </div>
     </div>
+  </div>
+  <div class="reel-rahmen reveal">
+    <button class="pfeil l" aria-label="Vorheriges Video">‹</button>
+    <div class="reel">
+      <figure class="video" data-f="app" style="--farbe:#FF7A45"><video src="HEATS-Webseite/videos/heats-werbung.mp4" poster="HEATS-Webseite/videos/heats-werbung.jpg" playsinline muted preload="none"></video><span class="v-tag">Die App</span><span class="v-dauer">0:36</span><button class="v-ton" aria-label="Ton an/aus">🔇</button><figcaption><b>Allein laufen? War gestern.</b><span>Lauf jetzt mit, Tempo-Gruppen, Begleitläufe und Abzeichen – alles in einer App.</span></figcaption><div class="v-balken"><i></i></div></figure>
+      <figure class="video" data-f="spot" style="--farbe:#7FE0C0"><video src="HEATS-Webseite/videos/heats-paerchen.mp4" poster="HEATS-Webseite/videos/heats-paerchen.jpg" playsinline muted preload="none"></video><span class="v-tag">Spot</span><span class="v-dauer">0:17</span><button class="v-ton" aria-label="Ton an/aus">🔇</button><figcaption><b>Sofa oder Sport?</b><span>Raus vom Sofa, rein in die Laufgruppe – Treffen finden und zusammen dabei sein.</span></figcaption><div class="v-balken"><i></i></div></figure>
+      <figure class="video" data-f="app" style="--farbe:#A99BFF"><video src="HEATS-Webseite/videos/heats-lebendig.mp4" poster="HEATS-Webseite/videos/heats-lebendig.jpg" playsinline muted preload="none"></video><span class="v-tag">Die App</span><span class="v-dauer">0:34</span><button class="v-ton" aria-label="Ton an/aus">🔇</button><figcaption><b>Zusammen macht Sport mehr Spaß</b><span>Gruppen in deiner Stadt, dein Profil mit deinen Werten – Kennenlernen nur, wenn du willst.</span></figcaption><div class="v-balken"><i></i></div></figure>
+      <figure class="video" data-f="spot" style="--farbe:#FF7A45"><video src="HEATS-Webseite/videos/heats-shut-up.mp4" poster="HEATS-Webseite/videos/heats-shut-up.jpg" playsinline muted preload="none"></video><span class="v-tag">Spot</span><span class="v-dauer">0:14</span><button class="v-ton" aria-label="Ton an/aus">🔇</button><figcaption><b>Die ganze Story</b><span>Erst mitlaufen, dann mitreden. Kurz, laut, motivierend.</span></figcaption><div class="v-balken"><i></i></div></figure>
+      <figure class="video" data-f="app" style="--farbe:#7FE0C0"><video src="HEATS-Webseite/videos/heats-community.mp4" poster="HEATS-Webseite/videos/heats-community.jpg" playsinline muted preload="none"></video><span class="v-tag">Die App</span><span class="v-dauer">0:30</span><button class="v-ton" aria-label="Ton an/aus">🔇</button><figcaption><b>Aus Fremden werden Freunde</b><span>Sag zu, komm vorbei – oder gründe gleich deine eigene Gruppe.</span></figcaption><div class="v-balken"><i></i></div></figure>
+      <figure class="video" data-f="spot" style="--farbe:#A99BFF"><video src="HEATS-Webseite/videos/heats-radfahren.mp4" poster="HEATS-Webseite/videos/heats-radfahren.jpg" playsinline muted preload="none"></video><span class="v-tag">Spot</span><span class="v-dauer">0:17</span><button class="v-ton" aria-label="Ton an/aus">🔇</button><figcaption><b>Radfahren. Hingehen.</b><span>Laufen, Radtour oder Hyrox – such dir aus, worauf du Lust hast.</span></figcaption><div class="v-balken"><i></i></div></figure>
+      <figure class="video" data-f="app" style="--farbe:#FF7A45"><video src="HEATS-Webseite/videos/heats-so-gehts.mp4" poster="HEATS-Webseite/videos/heats-so-gehts.jpg" playsinline muted preload="none"></video><span class="v-tag">So geht's</span><span class="v-dauer">0:28</span><button class="v-ton" aria-label="Ton an/aus">🔇</button><figcaption><b>So findest du deine Crew</b><span>App laden, Treffen finden, zusagen, sehen wer mitkommt, einchecken – los geht's.</span></figcaption><div class="v-balken"><i></i></div></figure>
+    </div>
+    <button class="pfeil r" aria-label="Nächstes Video">›</button>
+    <div class="punkte"></div>
+    <p class="v-hinweis">Personen in den Videos sind KI-generiert.</p>
   </div>
 </section>
 
@@ -340,18 +413,50 @@
     var n = document.querySelector('nav a[href="#videos"]'); if (n) n.style.display = 'none';
   });
 
-  // Videos: Tippen = mit Ton abspielen / pausieren, nur eins gleichzeitig
+  // Video-Reel: mittleres Video läuft stumm, Tippen = Ton an, danach automatisch das nächste
   (function(){
-    var figs = document.querySelectorAll('.video');
-    figs.forEach(function(f){
+    var reel = document.querySelector('.reel'); if (!reel) return;
+    var figs = [].slice.call(reel.querySelectorAll('.video'));
+    var punkte = document.querySelector('.punkte');
+    var ton = false, aktiv = null, sichtbar = false;
+    figs.forEach(function(f, i){
+      var b = document.createElement('button'); b.setAttribute('aria-label', 'Video ' + (i+1));
+      b.onclick = function(){ zeige(f); }; punkte.appendChild(b); f._punkt = b;
       var v = f.querySelector('video');
-      f.addEventListener('click', function(){
-        if (v.paused) {
-          figs.forEach(function(o){ if (o !== f) { o.querySelector('video').pause(); o.classList.remove('laeuft'); } });
-          v.muted = false; v.play(); f.classList.add('laeuft');
-        } else { v.pause(); f.classList.remove('laeuft'); }
+      v.addEventListener('timeupdate', function(){ if (v.duration) f.querySelector('.v-balken i').style.width = (v.currentTime / v.duration * 100) + '%'; });
+      v.addEventListener('ended', function(){ var n = naechstes(f, 1); if (n) zeige(n); else { v.currentTime = 0; v.play(); } });
+      f.addEventListener('click', function(e){
+        if (f !== aktiv) { zeige(f); return; }
+        if (e.target.classList.contains('v-ton') || v.muted) { ton = v.muted; setzeTon(); if (v.paused) v.play(); }
+        else if (v.paused) v.play(); else v.pause();
       });
     });
+    function offen(){ return figs.filter(function(f){ return !f.classList.contains('weg'); }); }
+    function naechstes(f, r){ var o = offen(), i = o.indexOf(f) + r; return o[i] || null; }
+    function zeige(f){ reel.scrollTo({ left: f.offsetLeft - (reel.clientWidth - f.offsetWidth) / 2, behavior:'smooth' }); }
+    function setzeTon(){ figs.forEach(function(f){ var v = f.querySelector('video'); v.muted = !ton || f !== aktiv; f.querySelector('.v-ton').textContent = ton ? '🔊' : '🔇'; f.classList.toggle('ton', ton && f === aktiv); }); }
+    function waehle(){
+      var mitte = reel.scrollLeft + reel.clientWidth / 2, best = null, d = 1e9;
+      offen().forEach(function(f){ var x = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mitte); if (x < d) { d = x; best = f; } });
+      if (best === aktiv) return; aktiv = best;
+      figs.forEach(function(f){ var v = f.querySelector('video'), an = f === aktiv; f.classList.toggle('mitte', an); f._punkt.classList.toggle('an', an); if (!an) { v.pause(); } });
+      setzeTon(); spiele();
+    }
+    function spiele(){ if (!aktiv) return; var v = aktiv.querySelector('video'); if (sichtbar) { v.preload = 'auto'; var p = v.play(); if (p && p.catch) p.catch(function(){ v.muted = true; ton = false; setzeTon(); v.play(); }); } else v.pause(); }
+    var t; reel.addEventListener('scroll', function(){ clearTimeout(t); t = setTimeout(waehle, 80); });
+    document.querySelector('.pfeil.l').onclick = function(){ var n = naechstes(aktiv, -1); if (n) zeige(n); };
+    document.querySelector('.pfeil.r').onclick = function(){ var n = naechstes(aktiv, 1); if (n) zeige(n); };
+    document.querySelectorAll('.filter button').forEach(function(b){
+      b.onclick = function(){
+        document.querySelectorAll('.filter button').forEach(function(x){ x.classList.toggle('an', x === b); });
+        var w = b.dataset.f;
+        figs.forEach(function(f){ var weg = w !== 'alle' && f.dataset.f !== w; f.classList.toggle('weg', weg); f._punkt.classList.toggle('weg', weg); if (weg) f.querySelector('video').pause(); });
+        aktiv = null; reel.scrollLeft = 0; waehle();
+      };
+    });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(en){ sichtbar = en[0].isIntersecting; spiele(); }, { threshold:.35 }).observe(reel);
+    else sichtbar = true;
+    setTimeout(waehle, 50);
   })();
 
   // Nach dem Bestätigungslink aus der E-Mail (Supabase leitet hierher)
