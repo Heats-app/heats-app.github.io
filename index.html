@@ -222,9 +222,9 @@
     <h2 class="reveal">So fühlt sich HEATS an</h2>
     <p class="intro reveal">Echte Gruppen, echte Treffen, echte Leute aus deiner Stadt. Tipp auf ein Video und schau rein.</p>
     <div class="videos">
-      <figure class="video reveal"><video src="videos/heats-werbung.mp4" poster="videos/heats-werbung.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
-      <figure class="video reveal"><video src="videos/heats-lebendig.mp4" poster="videos/heats-lebendig.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
-      <figure class="video reveal"><video src="videos/heats-community.mp4" poster="videos/heats-community.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
+      <figure class="video reveal"><video src="HEATS-Webseite/videos/heats-werbung.mp4" poster="HEATS-Webseite/videos/heats-werbung.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
+      <figure class="video reveal"><video src="HEATS-Webseite/videos/heats-lebendig.mp4" poster="HEATS-Webseite/videos/heats-lebendig.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
+      <figure class="video reveal"><video src="HEATS-Webseite/videos/heats-community.mp4" poster="HEATS-Webseite/videos/heats-community.jpg" playsinline muted loop preload="none"></video><button class="play" aria-label="Video abspielen">▶</button></figure>
     </div>
   </div>
 </section>
@@ -334,7 +334,7 @@
   })();
 
   // Videos ausblenden, solange die Dateien noch nicht hochgeladen sind
-  fetch('videos/heats-werbung.jpg', { method:'HEAD' }).then(function(r){ if (!r.ok) throw 0; }).catch(function(){
+  fetch('HEATS-Webseite/videos/heats-werbung.jpg', { method:'HEAD' }).then(function(r){ if (!r.ok) throw 0; }).catch(function(){
     if (location.protocol === 'file:') return;
     var s = document.getElementById('videos'); if (s) s.style.display = 'none';
     var n = document.querySelector('nav a[href="#videos"]'); if (n) n.style.display = 'none';
