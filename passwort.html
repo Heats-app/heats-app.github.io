@@ -25,7 +25,7 @@ button{width:100%;padding:16px;border:none;border-radius:30px;background:#FF7A45
 <p class="slogan">Sport zusammen. In deiner Stadt.</p>
 <div class="karte">
 <h2>🔑 Neues Passwort</h2>
-<input id="pw1" type="password" placeholder="Neues Passwort (mind. 6 Zeichen)">
+<input id="pw1" type="password" placeholder="Neues Passwort (mind. 8 Zeichen, Buchstaben + Zahl)">
 <input id="pw2" type="password" placeholder="Passwort wiederholen">
 <button id="knopf">Passwort speichern</button>
 <p id="info"></p>
@@ -40,7 +40,7 @@ const info = document.getElementById("info");
 document.getElementById("knopf").onclick = async () => {
   const p1 = document.getElementById("pw1").value;
   const p2 = document.getElementById("pw2").value;
-  if (p1.length < 6) { info.textContent = "Mindestens 6 Zeichen bitte."; return; }
+  if (p1.length < 8 || !/[A-Za-z]/.test(p1) || !/[0-9]/.test(p1)) { info.textContent = "Mindestens 8 Zeichen, mit Buchstaben und Zahlen bitte."; return; }
   if (p1 !== p2) { info.textContent = "Die Passwörter sind nicht gleich."; return; }
   const { data } = await sb.auth.getSession();
   if (!data.session) { info.textContent = "Link abgelaufen. Bitte in der App nochmal „Passwort vergessen?“ tippen."; return; }
