@@ -132,7 +132,7 @@
   #bestaetigt h2 { font-size:26px; margin:0 0 8px; } #bestaetigt p { color:var(--grau); margin:0 0 20px; }
   #bestaetigt button { background:var(--m); color:#0b100f; border:0; border-radius:999px; padding:12px 24px; font-weight:800; font-size:16px; cursor:pointer; }
   /* Intro-Banner beim Öffnen */
-  #intro { position:fixed; inset:0; z-index:80; background:radial-gradient(circle at 50% 45%, #1a1210 0%, #070a0a 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; transition:opacity .7s ease, transform .9s cubic-bezier(.7,0,.3,1); }
+  #intro { position:fixed; inset:0; z-index:9999; -webkit-transform:translateZ(0); background:radial-gradient(circle at 50% 45%, #1a1210 0%, #070a0a 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; transition:opacity .7s ease, transform .9s cubic-bezier(.7,0,.3,1); }
   #intro.weg { opacity:0; transform:scale(1.15); pointer-events:none; }
   #intro .licht { position:absolute; width:70vmax; height:70vmax; border-radius:50%; filter:blur(80px); opacity:0; animation:licht 2.6s ease-out .3s forwards; }
   #intro .licht.a { background:var(--o); left:-25vmax; top:-25vmax; } #intro .licht.b { background:var(--l); right:-25vmax; bottom:-25vmax; animation-delay:.5s; }
@@ -309,8 +309,8 @@
   box.querySelector('.mv-rahmen').addEventListener('click',function(){ if(v.muted){ v.muted=false; tonText(); v.play(); } else if(v.paused)v.play(); else v.pause(); });
   // Beim Runterscrollen bleibt das Video oben sichtbar
   var rahmen=box.querySelector('.mv-rahmen');
-  function pruefen(){ var fest=box.getBoundingClientRect().top+14<=8; if(fest&&!rahmen.classList.contains('fest')){ box.style.height=box.offsetHeight+'px'; rahmen.classList.add('fest'); } else if(!fest&&rahmen.classList.contains('fest')){ rahmen.classList.remove('fest'); box.style.height=''; } }
-  addEventListener('scroll',pruefen,{passive:true}); addEventListener('touchmove',pruefen,{passive:true}); pruefen();
+  function pruefen(){ var ii=document.getElementById('intro'); if(ii&&!ii.classList.contains('weg'))return; var fest=box.getBoundingClientRect().top+14<=8; if(fest&&!rahmen.classList.contains('fest')){ box.style.height=box.offsetHeight+'px'; rahmen.classList.add('fest'); } else if(!fest&&rahmen.classList.contains('fest')){ rahmen.classList.remove('fest'); box.style.height=''; } }
+  addEventListener('scroll',pruefen,{passive:true}); addEventListener('touchmove',pruefen,{passive:true});
   box.querySelector('.mv-x').addEventListener('click',function(e){ e.stopPropagation(); v.pause(); hg.pause(); v.removeAttribute('src'); hg.removeAttribute('src'); v.load(); hg.load(); box.classList.add('zu'); removeEventListener('scroll',pruefen); removeEventListener('touchmove',pruefen); });
   // Ton beim ersten Tippen irgendwo auf der Seite einschalten (iPhone erlaubt Ton erst nach Berührung)
   function erste(e){ if(box.contains(e.target))return; if(v.muted){ v.muted=false; tonText(); v.play().catch(function(){}); } document.removeEventListener('touchend',erste,true); document.removeEventListener('click',erste,true); }
