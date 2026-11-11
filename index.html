@@ -183,11 +183,15 @@
     #m-video button { position:absolute; z-index:3; border:0; background:rgba(0,0,0,.6); color:#fff; font:inherit; font-weight:800; cursor:pointer; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
     #m-video .mv-ton { top:8px; left:8px; height:30px; border-radius:999px; padding:0 12px; font-size:12px; }
     #m-video .mv-ton.stumm { background:var(--o); color:#0b100f; animation:tippPuls 1.4s ease-in-out infinite; }
-    #m-video .mv-gross { top:8px; right:8px; width:30px; height:30px; border-radius:50%; font-size:15px; padding:0; }
+    #m-video .mv-x { top:8px; right:8px; width:30px; height:30px; border-radius:50%; font-size:15px; padding:0; }
+    #m-video .mv-gross { top:8px; right:46px; width:30px; height:30px; border-radius:50%; font-size:15px; padding:0; }
     #m-video .mv-weiter { right:8px; bottom:14px; height:30px; border-radius:999px; padding:0 12px; font-size:12px; }
     #m-video .mv-titel { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:26px 100px 12px 12px; background:linear-gradient(transparent, rgba(0,0,0,.8)); font-size:14px; font-weight:800; line-height:1.2; }
     #m-video .mv-balken { position:absolute; left:0; right:0; bottom:0; height:3px; z-index:3; background:rgba(255,255,255,.15); }
     #m-video .mv-balken i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--o),var(--m),var(--l)); }
+    #m-video .mv-rahmen.fest { position:fixed; z-index:40; top:calc(8px + env(safe-area-inset-top)); left:10px; right:10px; animation:mvRein .35s ease-out; }
+    @keyframes mvRein { from { transform:translateY(-30px); opacity:0; } }
+    #m-video.zu { display:none; }
     .hero { padding-top:30px; }
   }
     @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } .reveal{opacity:1;transform:none;} }
@@ -281,6 +285,7 @@
     <video class="mv-vg" playsinline preload="auto"></video>
     <button class="mv-ton" type="button">🔊</button>
     <button class="mv-gross" type="button" aria-label="Vollbild">⛶</button>
+    <button class="mv-x" type="button" aria-label="Video schließen">✕</button>
     <button class="mv-weiter" type="button">Nächstes ›</button>
     <div class="mv-titel"></div>
     <div class="mv-balken"><i></i></div>
@@ -302,6 +307,11 @@
   box.querySelector('.mv-weiter').addEventListener('click',function(e){ e.stopPropagation(); naechstes(); });
   box.querySelector('.mv-gross').addEventListener('click',function(e){ e.stopPropagation(); v.muted=false; tonText(); if(v.webkitEnterFullscreen)v.webkitEnterFullscreen(); else if(v.requestFullscreen)v.requestFullscreen(); });
   box.querySelector('.mv-rahmen').addEventListener('click',function(){ if(v.muted){ v.muted=false; tonText(); v.play(); } else if(v.paused)v.play(); else v.pause(); });
+  // Beim Runterscrollen bleibt das Video oben sichtbar
+  var rahmen=box.querySelector('.mv-rahmen');
+  function pruefen(){ var fest=box.getBoundingClientRect().bottom<0; if(fest&&!rahmen.classList.contains('fest')){ box.style.height=box.offsetHeight+'px'; rahmen.classList.add('fest'); } else if(!fest&&rahmen.classList.contains('fest')){ rahmen.classList.remove('fest'); box.style.height=''; } }
+  addEventListener('scroll',pruefen,{passive:true});
+  box.querySelector('.mv-x').addEventListener('click',function(e){ e.stopPropagation(); v.pause(); hg.pause(); v.removeAttribute('src'); hg.removeAttribute('src'); v.load(); hg.load(); box.classList.add('zu'); removeEventListener('scroll',pruefen); });
   // Ton beim ersten Tippen irgendwo auf der Seite einschalten (iPhone erlaubt Ton erst nach Berührung)
   function erste(e){ if(box.contains(e.target))return; if(v.muted){ v.muted=false; tonText(); v.play().catch(function(){}); } document.removeEventListener('touchend',erste,true); document.removeEventListener('click',erste,true); }
   document.addEventListener('touchend',erste,true); document.addEventListener('click',erste,true);
