@@ -488,5 +488,102 @@
     if (box.classList.contains('an') && history.replaceState) history.replaceState(null, '', location.pathname);
   })();
 </script>
+<!-- Feature-Erklärungen (Popup beim Antippen) -->
+<style>
+  .feature { cursor:pointer; position:relative; transition:transform .2s, border-color .2s; }
+  .feature:hover { transform:translateY(-3px); }
+  .feature::after { content:"Ansehen ›"; position:absolute; right:16px; bottom:12px; font-size:12px; font-weight:800; color:var(--o); opacity:.85; }
+  #fx { position:fixed; inset:0; z-index:9000; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(5,8,8,.78); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); opacity:0; pointer-events:none; transition:opacity .3s; }
+  #fx.an { opacity:1; pointer-events:auto; }
+  #fx .fx-box { position:relative; width:min(560px,100%); max-height:92vh; overflow:auto; background:var(--karte); border-radius:26px; box-shadow:0 0 0 2px var(--o), 0 30px 80px -20px var(--o); transform:scale(.92) translateY(20px); transition:transform .35s cubic-bezier(.2,1.2,.3,1); }
+  #fx.an .fx-box { transform:none; }
+  #fx .fx-x { position:absolute; top:12px; right:12px; z-index:5; width:34px; height:34px; border-radius:50%; border:0; background:rgba(0,0,0,.55); color:#fff; font-size:17px; cursor:pointer; }
+  #fx .fx-szene { position:relative; height:290px; overflow:hidden; border-radius:26px 26px 0 0; background:radial-gradient(circle at 30% 20%, #2a1a14, #0b100f 70%); }
+  #fx .fx-txt { padding:20px 24px 26px; }
+  #fx .fx-txt h3 { margin:0 0 6px; font-size:24px; } #fx .fx-txt p { margin:0 0 12px; color:var(--grau); }
+  #fx .fx-txt ol { margin:0; padding-left:20px; } #fx .fx-txt li { margin:4px 0; }
+  #fx .fx-txt li b { color:var(--m); }
+  /* Szenen-Bausteine */
+  .sz { position:absolute; inset:0; font-size:13px; }
+  .sz .kar { position:absolute; background:var(--karte2); border-radius:14px; padding:10px 12px; box-shadow:0 10px 30px rgba(0,0,0,.4); }
+  .sz .pill { display:inline-block; padding:3px 9px; border-radius:999px; font-size:11px; font-weight:800; }
+  .sz .po { background:var(--o); color:#0b100f; } .sz .pm { background:var(--m); color:#0b100f; } .sz .pl { background:var(--l); color:#0b100f; }
+  .sz .rein { opacity:0; animation:fxRein .5s ease-out forwards; }
+  @keyframes fxRein { from { opacity:0; transform:translateY(16px) scale(.9); } to { opacity:1; transform:none; } }
+  @keyframes fxPuls { 0% { transform:translate(-50%,-50%) scale(.2); opacity:.9; } 100% { transform:translate(-50%,-50%) scale(1); opacity:0; } }
+  @keyframes fxPop { 0% { transform:translate(-50%,-100%) scale(0); } 70% { transform:translate(-50%,-100%) scale(1.25); } 100% { transform:translate(-50%,-100%) scale(1); } }
+  @keyframes fxLauf { from { left:-12%; } to { left:104%; } }
+  @keyframes fxStrich { to { stroke-dashoffset:0; } }
+  @keyframes fxBalken { from { width:0; } }
+  @keyframes fxFahrt { 0% { transform:translateX(-140px); } 60%,100% { transform:translateX(0); } }
+  @keyframes fxWackel { 0%,100% { transform:rotate(-6deg); } 50% { transform:rotate(6deg); } }
+  .sz .pin { position:absolute; font-size:26px; transform:translate(-50%,-100%) scale(0); animation:fxPop .5s ease-out forwards; }
+  .sz .radar { position:absolute; left:50%; top:52%; width:240px; height:240px; border-radius:50%; border:2px solid var(--o); background:rgba(255,122,69,.08); animation:fxPuls 2.4s ease-out infinite; }
+  .sz .ich { position:absolute; left:50%; top:52%; width:16px; height:16px; margin:-8px 0 0 -8px; border-radius:50%; background:var(--m); box-shadow:0 0 0 6px rgba(127,224,192,.25), 0 0 20px var(--m); }
+  .sz .bahn { position:absolute; left:0; right:0; height:56px; border-top:1px dashed rgba(255,255,255,.12); }
+  .sz .bahn .lbl { position:absolute; left:12px; top:6px; font-weight:800; font-size:12px; color:var(--grau); z-index:2; }
+  .sz .bahn .gr { position:absolute; top:18px; font-size:26px; white-space:nowrap; animation:fxLauf linear infinite; }
+  .sz .bahn.du { background:rgba(127,224,192,.08); } .sz .bahn.du .lbl { color:var(--m); }
+  .sz .fxw { font-size:28px; font-weight:900; } .sz .klein { color:var(--grau); font-size:11px; }
+</style>
+<div id="fx" role="dialog" aria-modal="true"><div class="fx-box"><button class="fx-x" type="button" aria-label="Schließen">✕</button><div class="fx-szene"></div><div class="fx-txt"></div></div></div>
+<script>(function(){
+  var S={
+  'Gruppen in jeder Stadt':{t:'Du stellst ein, wie weit du fahren willst – HEATS zeigt dir alle Gruppen in deinem Umkreis.',s:['Umkreis einstellen – von <b>1 bis 300 km</b>','Gruppen und Treffen in der Nähe erscheinen sofort','Antippen, beitreten, mitmachen'],
+   h:'<div class="sz"><div class="radar"></div><div class="radar" style="animation-delay:1.2s"></div><div class="ich"></div>'+
+     '<div class="pin" style="left:24%;top:34%;animation-delay:.3s">📍</div><div class="pin" style="left:62%;top:28%;animation-delay:.6s">📍</div><div class="pin" style="left:64%;top:74%;animation-delay:.9s">📍</div><div class="pin" style="left:32%;top:78%;animation-delay:1.2s">📍</div>'+
+     '<div class="kar rein" style="left:14px;bottom:14px;animation-delay:1.5s"><b>🏃 Feierabendlauf</b><div class="klein">3,2 km entfernt · Do 18:30</div></div>'+
+     '<div class="kar rein" style="right:14px;top:58px;animation-delay:.2s"><div class="klein">Umkreis</div><b style="color:var(--o)">25 km</b></div></div>'},
+  'Tempo-Matching':{t:'Jede Gruppe hat ihr Tempo. So läufst du mit Leuten, die genauso schnell sind wie du.',s:['Dein Wohlfühl-Tempo im Profil angeben','HEATS zeigt Gruppen mit <b>passender Pace</b>','Keiner hetzt, keiner wartet'],
+   h:'<div class="sz" style="padding-top:40px"><div class="kar rein" style="left:14px;top:12px;padding:6px 12px;white-space:nowrap">Dein Tempo: <b style="color:var(--m)">6:00 min/km</b></div>'+
+     '<div class="bahn" style="top:62px"><span class="lbl">5:00 min/km</span><span class="gr" style="animation-duration:3s">🏃🏃‍♂️</span></div>'+
+     '<div class="bahn du" style="top:122px"><span class="lbl">6:00 min/km · passt zu dir ✓</span><span class="gr" style="animation-duration:4.5s">🏃‍♀️🏃🏃‍♂️</span></div>'+
+     '<div class="bahn" style="top:182px"><span class="lbl">7:00 min/km</span><span class="gr" style="animation-duration:6.5s">🚶‍♀️🏃‍♀️</span></div></div>'},
+  'Lauf-Funktion':{t:'Starte deinen Lauf direkt in HEATS – Strecke, Kilometer und Tempo werden per GPS aufgezeichnet.',s:['Auf <b>Start</b> tippen und loslaufen','Live: Zeit, Kilometer, Tempo','Nach dem Lauf speichern oder mit der Gruppe teilen'],
+   h:'<div class="sz"><svg viewBox="0 0 300 200" style="position:absolute;left:0;top:0;width:60%;height:100%"><path d="M30 170 C60 120, 40 80, 90 70 S150 110, 170 60 S230 30, 260 50" fill="none" stroke="#FF7A45" stroke-width="6" stroke-linecap="round" stroke-dasharray="420" stroke-dashoffset="420" style="animation:fxStrich 3.5s ease-in-out forwards;filter:drop-shadow(0 0 8px #FF7A45)"/><circle cx="30" cy="170" r="7" fill="#7FE0C0"/></svg>'+
+     '<div class="kar rein" style="right:14px;top:56px;width:40%"><div class="klein">Distanz</div><div class="fxw"><span data-zahl="5.2" data-dez="1" style="font-size:28px">0,0</span> <span style="font-size:14px">km</span></div></div>'+
+     '<div class="kar rein" style="right:14px;top:150px;width:40%;animation-delay:.2s;padding:6px 12px"><div class="klein">Tempo · Zeit</div><b style="font-size:18px">5:02 /km · 26:10</b></div>'+
+     '<div class="rein" style="position:absolute;right:14px;bottom:16px;animation-delay:.4s"><span class="pill po" style="font-size:14px;padding:8px 20px">■ Stopp</span></div></div>'},
+  'Foto mit deinen Werten':{t:'Nach dem Lauf ein Foto machen – HEATS legt deine Werte im HEATS-Look darüber. Fertig für Instagram.',s:['Lauf beenden, <b>Foto</b> machen oder auswählen','Kilometer, Tempo und Zeit kommen automatisch drauf','Direkt in Instagram oder WhatsApp teilen'],
+   h:'<div class="sz"><div class="rein" style="position:absolute;left:50%;top:14px;width:170px;height:262px;margin-left:-85px;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#ff9a6b,#7a3b8f 60%,#1b2a4a);box-shadow:0 20px 50px rgba(0,0,0,.6)">'+
+     '<div style="position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:64px">🏃‍♀️🏃</div>'+
+     '<div class="rein" style="position:absolute;left:10px;right:10px;bottom:10px;background:rgba(0,0,0,.55);border-radius:12px;padding:8px;animation-delay:1s"><b style="font-style:italic">/// HE<span style="color:var(--o)">A</span>TS</b><div style="display:flex;justify-content:space-between;font-weight:800;margin-top:4px"><span>8,4 km</span><span>5:15</span><span>44:06</span></div></div></div>'+
+     '<div class="rein" style="position:absolute;right:16px;bottom:20px;animation-delay:1.8s"><span class="pill pl" style="font-size:13px;padding:7px 14px">Teilen ↗</span></div></div>'},
+  'Nie allein im Dunkeln':{t:'Abends nicht allein laufen: Schließ dich einer Begleitgruppe an oder teile deinen Live-Standort mit Freunden.',s:['Begleitgruppen für <b>Abendläufe</b> finden','Live-Standort mit Freunden teilen – nur solange du willst','Ankunft melden, Teilen stoppt automatisch'],
+   h:'<div class="sz" style="background:radial-gradient(circle at 80% 15%, #2b2f55, #070a12 70%)"><div style="position:absolute;right:30px;top:18px;font-size:34px">🌙</div>'+
+     '<svg viewBox="0 0 300 200" style="position:absolute;inset:0;width:100%;height:100%"><path id="fxw" d="M20 170 Q100 40 180 120 T290 60" fill="none" stroke="rgba(169,155,255,.35)" stroke-width="4" stroke-dasharray="6 8"/>'+
+     '<circle r="7" fill="#7FE0C0"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#fxw"/></animateMotion></circle><circle r="7" fill="#FF7A45"><animateMotion dur="5s" begin=".25s" repeatCount="indefinite"><mpath href="#fxw"/></animateMotion></circle><circle r="7" fill="#A99BFF"><animateMotion dur="5s" begin=".5s" repeatCount="indefinite"><mpath href="#fxw"/></animateMotion></circle></svg>'+
+     '<div class="kar rein" style="left:14px;top:14px;animation-delay:.5s">📡 Live geteilt mit <b>Lisa</b> & <b>Tom</b></div>'+
+     '<div class="kar rein" style="right:14px;bottom:14px;animation-delay:1.3s">🌙 Abendrunde · <b style="color:var(--m)">3 laufen mit</b></div></div>'},
+  'Gruppen nur für Frauen':{t:'Gründerinnen können ihre Gruppe nur für Frauen öffnen – für alle, die lieber unter sich trainieren.',s:['Beim Gruppe-Gründen <b>„Nur für Frauen“</b> einschalten','Nur Frauen können beitreten und zusagen','Alles andere funktioniert wie bei jeder Gruppe'],
+   h:'<div class="sz"><div class="kar rein" style="left:50%;top:26px;width:250px;margin-left:-125px"><b>🏃‍♀️ Ladies Morning Run</b><div class="klein">Sa 08:00 · Seepromenade</div>'+
+     '<div style="margin:10px 0 6px;display:flex;align-items:center;justify-content:space-between"><span>Nur für Frauen</span><span style="width:42px;height:24px;border-radius:999px;background:var(--l);position:relative;display:inline-block"><span style="position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff"></span></span></div>'+
+     '<span class="pill pl">💜 Nur für Frauen</span></div>'+
+     '<div style="position:absolute;left:0;right:0;bottom:30px;text-align:center;font-size:34px;letter-spacing:4px"><span class="rein" style="display:inline-block;animation-delay:.6s">🏃‍♀️</span><span class="rein" style="display:inline-block;animation-delay:.9s">🚴‍♀️</span><span class="rein" style="display:inline-block;animation-delay:1.2s">🏋️‍♀️</span><span class="rein" style="display:inline-block;animation-delay:1.5s">🏃‍♀️</span></div></div>'},
+  'Abzeichen & Serien':{t:'Wer wirklich dabei ist, wird belohnt: Beim Treffen einchecken, Serien aufbauen, Abzeichen sammeln.',s:['Beim Treffen vor Ort <b>einchecken</b>','Jede Woche dabei = deine Serie wächst 🔥','Abzeichen fürs echte Dabeisein – nicht fürs Rumsitzen'],
+   h:'<div class="sz"><div class="rein" style="position:absolute;left:24px;top:40px"><span class="pill pm" style="font-size:15px;padding:10px 18px">✓ Eingecheckt</span></div>'+
+     '<div class="kar rein" style="left:24px;top:110px;animation-delay:.6s"><div class="klein">Serie</div><div class="fxw">🔥 <span data-zahl="6" style="font-size:28px">0</span> Wochen</div></div>'+
+     '<div class="rein" style="position:absolute;right:40px;top:50px;font-size:84px;animation:fxRein .6s 1.4s ease-out forwards, fxWackel 1.6s 2s ease-in-out infinite">🏅</div>'+
+     '<div class="rein" style="position:absolute;right:20px;bottom:26px;text-align:center;animation-delay:1.8s"><b>Neues Abzeichen!</b><div class="klein">10 Treffen dabei</div></div></div>'},
+  'Städte-Duell':{t:'Jeden Monat treten Städte gegeneinander an: Welche Community läuft mehr Gruppen-Kilometer?',s:['Jeder Gruppenlauf zählt für <b>deine Stadt</b>','Live-Rangliste im Monat','Die Gewinner-Stadt bekommt ein Abzeichen für alle'],
+   h:'<div class="sz" style="padding:40px 24px"><div class="kar rein" style="left:16px;top:12px;padding:6px 14px;white-space:nowrap">⚔️ <b>November-Duell</b></div>'+
+     '<div style="position:absolute;left:24px;right:24px;top:80px"><b>Friedrichshafen</b><div style="height:26px;border-radius:999px;background:rgba(255,255,255,.07);margin:6px 0 4px;overflow:hidden"><div style="height:100%;width:78%;background:linear-gradient(90deg,var(--o),#ffb08a);border-radius:999px;animation:fxBalken 2.5s ease-out"></div></div><span class="klein">1.248 km</span></div>'+
+     '<div style="position:absolute;left:24px;right:24px;top:160px"><b>Lindau</b><div style="height:26px;border-radius:999px;background:rgba(255,255,255,.07);margin:6px 0 4px;overflow:hidden"><div style="height:100%;width:61%;background:linear-gradient(90deg,var(--l),#cfc6ff);border-radius:999px;animation:fxBalken 2.5s ease-out"></div></div><span class="klein">976 km</span></div>'+
+     '<div class="rein" style="position:absolute;right:20px;bottom:14px;animation-delay:2.4s"><span class="pill po">🏆 FN führt!</span></div></div>'},
+  'Zusammen zum Wettkampf':{t:'Stadtlauf oder Hyrox? Meldet euch als Gruppe gemeinsam an – und fahrt zusammen hin.',s:['Wettkampf in der Gruppe auswählen','Gemeinsam <b>anmelden</b> und sehen, wer dabei ist','Fahrgemeinschaft: freie Plätze anbieten oder mitfahren'],
+   h:'<div class="sz"><div class="kar rein" style="left:16px;top:18px"><b>🏁 Stadtlauf 10 km</b><div class="klein">So · 09:30 · 7 aus deiner Gruppe</div></div>'+
+     '<div style="position:absolute;left:40px;top:110px;font-size:80px;animation:fxFahrt 3s ease-out forwards">🚗</div>'+
+     '<div class="kar rein" style="right:16px;top:110px;animation-delay:1.6s"><div class="klein">Fahrgemeinschaft</div><b>Plätze: <span style="color:var(--m)">● ● ●</span> <span style="color:var(--grau)">○</span></b></div>'+
+     '<div class="rein" style="position:absolute;right:16px;bottom:18px;animation-delay:2.2s"><span class="pill pm" style="font-size:13px;padding:7px 14px">✓ Wir sind dabei</span></div></div>'}
+  };
+  var fx=document.getElementById('fx'), sz=fx.querySelector('.fx-szene'), tx=fx.querySelector('.fx-txt'), timer=[];
+  function zaehlen(){ sz.querySelectorAll('[data-zahl]').forEach(function(el){ var z=parseFloat(el.dataset.zahl), d=+(el.dataset.dez||0), t0=performance.now(); (function f(t){ var p=Math.min(1,(t-t0)/3000); el.textContent=(z*p).toFixed(d).replace('.',','); if(p<1)timer.push(requestAnimationFrame(f)); })(t0); }); }
+  function auf(name){ var d=S[name]; if(!d)return; sz.innerHTML=d.h; tx.innerHTML='<h3>'+name+'</h3><p>'+d.t+'</p><ol><li>'+d.s.join('</li><li>')+'</li></ol>'; fx.classList.add('an'); document.body.style.overflow='hidden'; zaehlen(); }
+  function zu(){ fx.classList.remove('an'); document.body.style.overflow=''; timer.forEach(cancelAnimationFrame); timer=[]; setTimeout(function(){ if(!fx.classList.contains('an'))sz.innerHTML=''; },300); }
+  document.querySelectorAll('.feature').forEach(function(k){ var h=k.querySelector('h3'); if(!h)return; var n=h.textContent.trim(); if(!S[n])return; k.setAttribute('role','button'); k.tabIndex=0; k.addEventListener('click',function(){ auf(n); }); k.addEventListener('keydown',function(e){ if(e.key==='Enter')auf(n); }); });
+  fx.addEventListener('click',function(e){ if(e.target===fx)zu(); }); fx.querySelector('.fx-x').addEventListener('click',zu);
+  addEventListener('keydown',function(e){ if(e.key==='Escape')zu(); });
+})();</script>
+
 </body>
 </html>
