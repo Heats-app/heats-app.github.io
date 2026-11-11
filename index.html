@@ -31,10 +31,10 @@
 
   /* Hero */
   .hero { position:relative; padding:80px 0 70px; overflow:hidden; }
-  .glow { position:absolute; border-radius:50%; filter:blur(90px); opacity:.35; pointer-events:none; }
-  .g1 { width:420px; height:420px; background:var(--o); top:-120px; left:-120px; }
-  .g2 { width:380px; height:380px; background:var(--l); top:60px; right:-140px; }
-  .g3 { width:300px; height:300px; background:var(--m); bottom:-160px; left:40%; opacity:.22; }
+  .glow { position:absolute; border-radius:50%; opacity:.5; pointer-events:none; }
+  .g1 { width:420px; height:420px; background:radial-gradient(circle, var(--o) 0%, transparent 68%); top:-120px; left:-120px; }
+  .g2 { width:380px; height:380px; background:radial-gradient(circle, var(--l) 0%, transparent 68%); top:60px; right:-140px; }
+  .g3 { width:300px; height:300px; background:radial-gradient(circle, var(--m) 0%, transparent 68%); bottom:-160px; left:40%; opacity:.22; }
   .hero .wrap { position:relative; display:grid; grid-template-columns:1.1fr .9fr; gap:50px; align-items:center; }
   @media (max-width:900px){ .hero .wrap { grid-template-columns:1fr; } .hero { padding-top:48px; } }
   .chip { display:inline-flex; align-items:center; gap:8px; background:rgba(127,224,192,.12); color:var(--m); border:1px solid rgba(127,224,192,.3); padding:6px 14px; border-radius:999px; font-size:14px; font-weight:600; }
@@ -134,8 +134,8 @@
   /* Intro-Banner beim Öffnen */
   #intro { position:fixed; inset:0; z-index:9999; -webkit-transform:translateZ(0); background:radial-gradient(circle at 50% 45%, #1a1210 0%, #070a0a 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; transition:opacity .7s ease, transform .9s cubic-bezier(.7,0,.3,1); }
   #intro.weg { opacity:0; transform:scale(1.15); pointer-events:none; }
-  #intro .licht { position:absolute; width:70vmax; height:70vmax; border-radius:50%; filter:blur(80px); opacity:0; animation:licht 2.6s ease-out .3s forwards; }
-  #intro .licht.a { background:var(--o); left:-25vmax; top:-25vmax; } #intro .licht.b { background:var(--l); right:-25vmax; bottom:-25vmax; animation-delay:.5s; }
+  #intro .licht { position:absolute; width:70vmax; height:70vmax; border-radius:50%; opacity:0; animation:licht 2.6s ease-out .3s forwards; }
+  #intro .licht.a { background:radial-gradient(circle, rgba(255,122,69,.9) 0%, rgba(255,122,69,0) 65%); left:-25vmax; top:-25vmax; } #intro .licht.b { background:radial-gradient(circle, rgba(169,155,255,.9) 0%, rgba(169,155,255,0) 65%); right:-25vmax; bottom:-25vmax; animation-delay:.5s; }
   @keyframes licht { 50% { opacity:.35; } 100% { opacity:.18; } }
   #intro .zeile-l { display:flex; align-items:center; gap:clamp(14px,3vw,30px); position:relative; }
   #intro .ib { display:flex; gap:clamp(8px,1.6vw,16px); }
@@ -145,10 +145,10 @@
   #intro .ib span:nth-child(3){ background:var(--l); animation-delay:.45s; box-shadow:0 0 40px var(--l); }
   @keyframes bahn { to { transform:skewX(-18deg) translateY(0); } }
   #intro .iw { font-size:clamp(40px,12.5vw,168px); font-weight:900; font-style:italic; letter-spacing:2px; line-height:1; color:#fff; display:flex; }
-  #intro .iw i { font-style:inherit; display:inline-block; opacity:0; transform:translateX(60px) skewX(-12deg); filter:blur(10px); animation:buchst .55s cubic-bezier(.2,.9,.3,1) forwards; }
+  #intro .iw i { font-style:inherit; display:inline-block; opacity:0; transform:translateX(60px) skewX(-12deg); animation:buchst .55s cubic-bezier(.2,.9,.3,1) forwards; }
   #intro .iw i:nth-child(1){animation-delay:.75s} #intro .iw i:nth-child(2){animation-delay:.83s} #intro .iw i:nth-child(3){animation-delay:.91s; color:var(--o); text-shadow:0 0 30px var(--o);} #intro .iw i:nth-child(4){animation-delay:.99s} #intro .iw i:nth-child(5){animation-delay:1.07s}
-  @keyframes buchst { to { opacity:1; transform:none; filter:none; } }
-  #intro .glanz { position:absolute; inset:-20px -40px; background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.55) 50%, transparent 60%); mix-blend-mode:overlay; transform:translateX(-120%); animation:glanz 1s ease-in-out 1.5s forwards; pointer-events:none; }
+  @keyframes buchst { to { opacity:1; transform:none; } }
+  #intro .glanz { position:absolute; inset:-20px -40px; background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.25) 50%, transparent 60%); transform:translateX(-120%); animation:glanz 1s ease-in-out 1.5s forwards; pointer-events:none; }
   @keyframes glanz { to { transform:translateX(120%); } }
   #intro .strich { height:6px; width:0; margin-top:18px; border-radius:6px; background:linear-gradient(90deg,var(--o),var(--m),var(--l)); box-shadow:0 0 24px rgba(255,122,69,.6); animation:strich .7s ease-out 1.25s forwards; }
   @keyframes strich { to { width:min(70vw,560px); } }
@@ -195,7 +195,12 @@
     .hero { padding-top:30px; }
   }
     @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } .reveal{opacity:1;transform:none;} }
+  .hi { display:inline-flex; align-items:center; justify-content:center; width:1.7em; height:1.7em; border-radius:50%; color:#0b100f; vertical-align:middle; flex:none; }
+  .hi svg { width:58%; height:58%; } .hi.o{background:var(--o)} .hi.m{background:var(--m)} .hi.l{background:var(--l)}
+  .feature .hi { font-size:28px; margin-bottom:14px; box-shadow:0 8px 24px -8px currentColor; }
+  .feature .hi.o{box-shadow:0 8px 24px -10px var(--o)} .feature .hi.m{box-shadow:0 8px 24px -10px var(--m)} .feature .hi.l{box-shadow:0 8px 24px -10px var(--l)}
 </style>
+<script>window.HI={"map-pin": "<path d=\"M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\"/><path d=\"M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0\"/>", "bolt": "<path d=\"M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11\"/>", "run": "<path d=\"M11.007 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\"/><path d=\"M4 17l5 1l.75 -1.5\"/><path d=\"M15 21v-4l-4 -3l1 -6\"/><path d=\"M7 12v-3l5 -1l3 3l3 1\"/>", "camera": "<path d=\"M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2\"/><path d=\"M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\"/>", "moon": "<path d=\"M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008\"/>", "gender-female": "<path d=\"M7 9a5 5 0 1 0 10 0a5 5 0 1 0 -10 0\"/><path d=\"M12 14v7\"/><path d=\"M9 18h6\"/>", "medal": "<path d=\"M12 4v3m-4 -3v6m8 -6v6\"/><path d=\"M12 18.5l-3 1.5l.5 -3.5l-2 -2l3 -.5l1.5 -3l1.5 3l3 .5l-2 2l.5 3.5l-3 -1.5\"/>", "swords": "<path d=\"M21 3v5l-11 9l-4 4l-3 -3l4 -4l9 -11l5 0\"/><path d=\"M5 13l6 6\"/><path d=\"M14.32 17.32l3.68 3.68l3 -3l-3.365 -3.365\"/><path d=\"M10 5.5l-2 -2.5h-5v5l3 2.5\"/>", "car": "<path d=\"M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\"/><path d=\"M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\"/><path d=\"M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5\"/>", "trophy": "<path d=\"M8 21l8 0\"/><path d=\"M12 17l0 4\"/><path d=\"M7 4l10 0\"/><path d=\"M17 4v8a5 5 0 0 1 -10 0v-8\"/><path d=\"M3 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\"/><path d=\"M17 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\"/>", "flame": "<path d=\"M12 10.941c2.333 -3.308 .167 -7.823 -1 -8.941c0 3.395 -2.235 5.299 -3.667 6.706c-1.43 1.408 -2.333 3.294 -2.333 5.588c0 3.704 3.134 6.706 7 6.706c3.866 0 7 -3.002 7 -6.706c0 -1.712 -1.232 -4.403 -2.333 -5.588c-2.084 3.353 -3.257 3.353 -4.667 2.235\"/>", "barbell": "<path d=\"M2 12h1\"/><path d=\"M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2\"/><path d=\"M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1\"/><path d=\"M9 12h6\"/><path d=\"M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1\"/><path d=\"M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2\"/><path d=\"M22 12h-1\"/>", "bike": "<path d=\"M2 18a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\"/><path d=\"M16 18a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\"/><path d=\"M12 19v-4l-3 -3l5 -4l2 3h3\"/><path d=\"M13.007 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\"/>", "walk": "<path d=\"M12 4a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\"/><path d=\"M7 21l3 -4\"/><path d=\"M16 21l-2 -4l-3 -3l1 -6\"/><path d=\"M6 12l2 -3l4 -1l3 3l3 1\"/>", "radar": "<path d=\"M21 12h-8a1 1 0 1 0 -1 1v8a9 9 0 0 0 9 -9\"/><path d=\"M16 9a5 5 0 1 0 -7 7\"/><path d=\"M20.486 9a9 9 0 1 0 -11.482 11.495\"/>", "heart": "<path d=\"M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572\"/>", "flag": "<path d=\"M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0v-9\"/><path d=\"M5 21v-7\"/>"};window.I=function(n,c){return '<span class="hi '+(c||'o')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+HI[n]+'</svg></span>'};</script>
 </head>
 <body>
 <script>if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.hash&&!/access_token|error|code=|token/.test(location.hash)&&history.replaceState)history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);addEventListener('load',function(){window.scrollTo(0,0);});addEventListener('pageshow',function(){window.scrollTo(0,0);});</script>
@@ -298,11 +303,11 @@
   var v=box.querySelector('.mv-vg'), hg=box.querySelector('.mv-hg'), tb=box.querySelector('.mv-ton'), reihe=[];
   function mischen(){ reihe=liste.slice(); for(var i=reihe.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=reihe[i]; reihe[i]=reihe[j]; reihe[j]=t; } }
   function tonText(){ tb.textContent=v.muted?'🔇 Tippen für Ton':'🔊 Ton aus'; tb.classList.toggle('stumm',v.muted); }
-  function spielen(){ v.muted=false; var p=v.play(); if(p&&p.catch)p.catch(function(){ v.muted=true; tonText(); v.play().catch(function(){}); }); hg.play().catch(function(){}); tonText(); }
-  function naechstes(){ if(!reihe.length)mischen(); var x=reihe.shift(), s='HEATS-Webseite/videos/'+x[0]; v.src=hg.src=s+'.mp4'; v.poster=hg.poster=s+'.jpg'; box.querySelector('.mv-titel').textContent=x[1]; spielen(); }
+  function spielen(){ v.muted=false; var p=v.play(); if(p&&p.catch)p.catch(function(){ v.muted=true; tonText(); v.play().catch(function(){}); }); tonText(); }
+  function naechstes(){ if(!reihe.length)mischen(); var x=reihe.shift(), s='HEATS-Webseite/videos/'+x[0]; v.src=s+'.mp4'; v.poster=hg.poster=s+'.jpg'; box.querySelector('.mv-titel').textContent=x[1]; spielen(); }
   v.addEventListener('ended',naechstes);
-  v.addEventListener('timeupdate',function(){ if(v.duration)box.querySelector('.mv-balken i').style.width=(v.currentTime/v.duration*100)+'%'; if(Math.abs(hg.currentTime-v.currentTime)>.4)hg.currentTime=v.currentTime; });
-  v.addEventListener('pause',function(){ hg.pause(); }); v.addEventListener('play',function(){ hg.play().catch(function(){}); });
+  v.addEventListener('timeupdate',function(){ if(v.duration)box.querySelector('.mv-balken i').style.width=(v.currentTime/v.duration*100)+'%'; });
+  
   tb.addEventListener('click',function(e){ e.stopPropagation(); v.muted=!v.muted; tonText(); if(v.paused)v.play(); });
   box.querySelector('.mv-weiter').addEventListener('click',function(e){ e.stopPropagation(); naechstes(); });
   box.querySelector('.mv-gross').addEventListener('click',function(e){ e.stopPropagation(); v.muted=false; tonText(); if(v.webkitEnterFullscreen)v.webkitEnterFullscreen(); else if(v.requestFullscreen)v.requestFullscreen(); });
@@ -347,7 +352,7 @@
         <div class="sub">Treffen in deiner Nähe</div>
         <div class="sports"><span class="an">Laufen</span><span>Radtour</span><span>Hyrox</span></div>
         <div class="tkarte">
-          <b>Feierabendlauf 🏃</b><em>Do · 18:30 · Uferpromenade · 6 km · 5:30 /km</em>
+          <b>Feierabendlauf <span class="hi o"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.007 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M4 17l5 1l.75 -1.5"/><path d="M15 21v-4l-4 -3l1 -6"/><path d="M7 12v-3l5 -1l3 3l3 1"/></svg></span></b><em>Do · 18:30 · Uferpromenade · 6 km · 5:30 /km</em>
           <div class="zeile"><div class="avatare"><span style="background:#FF7A45"></span><span style="background:#7FE0C0"></span><span style="background:#A99BFF"></span><span style="background:#e9eeec"></span></div><span class="dabei">Dabei ✓</span></div>
         </div>
         <div class="tkarte l">
@@ -389,15 +394,15 @@
     <h2 class="reveal">Alles, was du fürs Training zu zweit oder zu zwanzig brauchst</h2>
     <p class="intro reveal">Andere Apps zählen deine Kilometer. HEATS sorgt dafür, dass du sie nicht allein läufst.</p>
     <div class="features">
-      <div class="feature reveal"><div class="ico">📍</div><h3>Gruppen in jeder Stadt</h3><p>Finde Gruppen in deinem Umkreis – du stellst selbst ein, wie weit du fahren willst.</p></div>
-      <div class="feature reveal"><div class="ico">⚡</div><h3>Tempo-Matching</h3><p>Gruppen nach Pace: Niemand muss hetzen, niemand muss warten.</p></div>
-      <div class="feature reveal"><div class="ico">🏃</div><h3>Lauf-Funktion</h3><p>Strecke, Kilometer und Tempo per GPS aufzeichnen – direkt in der App.</p></div>
-      <div class="feature reveal"><div class="ico">📸</div><h3>Foto mit deinen Werten</h3><p>Mach ein Foto, deine Laufdaten kommen drauf – fertig zum Posten auf Instagram.</p></div>
-      <div class="feature reveal"><div class="ico">🌙</div><h3>Nie allein im Dunkeln</h3><p>Begleitgruppen für Abendläufe und Live-Standort mit Freunden teilen.</p></div>
-      <div class="feature reveal"><div class="ico">💜</div><h3>Gruppen nur für Frauen</h3><p>Gründerinnen können ihre Gruppe nur für Frauen öffnen.</p></div>
-      <div class="feature reveal"><div class="ico">🏅</div><h3>Abzeichen &amp; Serien</h3><p>Einchecken beim Treffen, Serien aufbauen, Abzeichen fürs echte Dabeisein sammeln.</p></div>
-      <div class="feature reveal"><div class="ico">⚔️</div><h3>Städte-Duell</h3><p>Welche Stadt läuft im Monat mehr Gruppen-Kilometer? Zeig, was eure Community kann.</p></div>
-      <div class="feature reveal"><div class="ico">🚗</div><h3>Zusammen zum Wettkampf</h3><p>Gemeinsam für Stadtläufe oder Hyrox anmelden – inklusive Fahrgemeinschaft.</p></div>
+      <div class="feature reveal"><span class="hi o"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"/></svg></span><h3>Gruppen in jeder Stadt</h3><p>Finde Gruppen in deinem Umkreis – du stellst selbst ein, wie weit du fahren willst.</p></div>
+      <div class="feature reveal"><span class="hi m"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"/></svg></span><h3>Tempo-Matching</h3><p>Gruppen nach Pace: Niemand muss hetzen, niemand muss warten.</p></div>
+      <div class="feature reveal"><span class="hi l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.007 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M4 17l5 1l.75 -1.5"/><path d="M15 21v-4l-4 -3l1 -6"/><path d="M7 12v-3l5 -1l3 3l3 1"/></svg></span><h3>Lauf-Funktion</h3><p>Strecke, Kilometer und Tempo per GPS aufzeichnen – direkt in der App.</p></div>
+      <div class="feature reveal"><span class="hi o"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2"/><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/></svg></span><h3>Foto mit deinen Werten</h3><p>Mach ein Foto, deine Laufdaten kommen drauf – fertig zum Posten auf Instagram.</p></div>
+      <div class="feature reveal"><span class="hi m"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008"/></svg></span><h3>Nie allein im Dunkeln</h3><p>Begleitgruppen für Abendläufe und Live-Standort mit Freunden teilen.</p></div>
+      <div class="feature reveal"><span class="hi l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M12 14v7"/><path d="M9 18h6"/></svg></span><h3>Gruppen nur für Frauen</h3><p>Gründerinnen können ihre Gruppe nur für Frauen öffnen.</p></div>
+      <div class="feature reveal"><span class="hi o"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v3m-4 -3v6m8 -6v6"/><path d="M12 18.5l-3 1.5l.5 -3.5l-2 -2l3 -.5l1.5 -3l1.5 3l3 .5l-2 2l.5 3.5l-3 -1.5"/></svg></span><h3>Abzeichen &amp; Serien</h3><p>Einchecken beim Treffen, Serien aufbauen, Abzeichen fürs echte Dabeisein sammeln.</p></div>
+      <div class="feature reveal"><span class="hi m"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3v5l-11 9l-4 4l-3 -3l4 -4l9 -11l5 0"/><path d="M5 13l6 6"/><path d="M14.32 17.32l3.68 3.68l3 -3l-3.365 -3.365"/><path d="M10 5.5l-2 -2.5h-5v5l3 2.5"/></svg></span><h3>Städte-Duell</h3><p>Welche Stadt läuft im Monat mehr Gruppen-Kilometer? Zeig, was eure Community kann.</p></div>
+      <div class="feature reveal"><span class="hi l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"/></svg></span><h3>Zusammen zum Wettkampf</h3><p>Gemeinsam für Stadtläufe oder Hyrox anmelden – inklusive Fahrgemeinschaft.</p></div>
     </div>
   </div>
 </section>
@@ -522,7 +527,7 @@
   .sz .ich { position:absolute; left:50%; top:52%; width:16px; height:16px; margin:-8px 0 0 -8px; border-radius:50%; background:var(--m); box-shadow:0 0 0 6px rgba(127,224,192,.25), 0 0 20px var(--m); }
   .sz .bahn { position:absolute; left:0; right:0; height:56px; border-top:1px dashed rgba(255,255,255,.12); }
   .sz .bahn .lbl { position:absolute; left:12px; top:6px; font-weight:800; font-size:12px; color:var(--grau); z-index:2; }
-  .sz .bahn .gr { position:absolute; top:18px; font-size:26px; white-space:nowrap; animation:fxLauf linear infinite; }
+  .sz .bahn .gr { position:absolute; top:22px; font-size:17px; white-space:nowrap; animation:fxLauf linear infinite; }
   .sz .bahn.du { background:rgba(127,224,192,.08); } .sz .bahn.du .lbl { color:var(--m); }
   .sz .fxw { font-size:28px; font-weight:900; } .sz .klein { color:var(--grau); font-size:11px; }
 </style>
@@ -531,14 +536,14 @@
   var S={
   'Gruppen in jeder Stadt':{t:'Du stellst ein, wie weit du fahren willst – HEATS zeigt dir alle Gruppen in deinem Umkreis.',s:['Umkreis einstellen – von <b>1 bis 300 km</b>','Gruppen und Treffen in der Nähe erscheinen sofort','Antippen, beitreten, mitmachen'],
    h:'<div class="sz"><div class="radar"></div><div class="radar" style="animation-delay:1.2s"></div><div class="ich"></div>'+
-     '<div class="pin" style="left:24%;top:34%;animation-delay:.3s">📍</div><div class="pin" style="left:62%;top:28%;animation-delay:.6s">📍</div><div class="pin" style="left:64%;top:74%;animation-delay:.9s">📍</div><div class="pin" style="left:32%;top:78%;animation-delay:1.2s">📍</div>'+
-     '<div class="kar rein" style="left:14px;bottom:14px;animation-delay:1.5s"><b>🏃 Feierabendlauf</b><div class="klein">3,2 km entfernt · Do 18:30</div></div>'+
+     '<div class="pin" style="left:24%;top:34%;animation-delay:.3s">'+I('map-pin','o')+'</div><div class="pin" style="left:62%;top:28%;animation-delay:.6s">'+I('map-pin','o')+'</div><div class="pin" style="left:64%;top:74%;animation-delay:.9s">'+I('map-pin','o')+'</div><div class="pin" style="left:32%;top:78%;animation-delay:1.2s">'+I('map-pin','o')+'</div>'+
+     '<div class="kar rein" style="left:14px;bottom:14px;animation-delay:1.5s"><b>'+I('run','o')+' Feierabendlauf</b><div class="klein">3,2 km entfernt · Do 18:30</div></div>'+
      '<div class="kar rein" style="right:14px;top:58px;animation-delay:.2s"><div class="klein">Umkreis</div><b style="color:var(--o)">25 km</b></div></div>'},
   'Tempo-Matching':{t:'Jede Gruppe hat ihr Tempo. So läufst du mit Leuten, die genauso schnell sind wie du.',s:['Dein Wohlfühl-Tempo im Profil angeben','HEATS zeigt Gruppen mit <b>passender Pace</b>','Keiner hetzt, keiner wartet'],
    h:'<div class="sz" style="padding-top:40px"><div class="kar rein" style="left:14px;top:12px;padding:6px 12px;white-space:nowrap">Dein Tempo: <b style="color:var(--m)">6:00 min/km</b></div>'+
-     '<div class="bahn" style="top:62px"><span class="lbl">5:00 min/km</span><span class="gr" style="animation-duration:3s">🏃🏃‍♂️</span></div>'+
-     '<div class="bahn du" style="top:122px"><span class="lbl">6:00 min/km · passt zu dir ✓</span><span class="gr" style="animation-duration:4.5s">🏃‍♀️🏃🏃‍♂️</span></div>'+
-     '<div class="bahn" style="top:182px"><span class="lbl">7:00 min/km</span><span class="gr" style="animation-duration:6.5s">🚶‍♀️🏃‍♀️</span></div></div>'},
+     '<div class="bahn" style="top:62px"><span class="lbl">5:00 min/km</span><span class="gr" style="animation-duration:3s">'+I('run','o')+''+I('run','o')+'</span></div>'+
+     '<div class="bahn du" style="top:122px"><span class="lbl">6:00 min/km · passt zu dir ✓</span><span class="gr" style="animation-duration:4.5s">'+I('run','m')+''+I('run','m')+''+I('run','m')+'</span></div>'+
+     '<div class="bahn" style="top:182px"><span class="lbl">7:00 min/km</span><span class="gr" style="animation-duration:6.5s">'+I('walk','l')+''+I('run','l')+'</span></div></div>'},
   'Lauf-Funktion':{t:'Starte deinen Lauf direkt in HEATS – Strecke, Kilometer und Tempo werden per GPS aufgezeichnet.',s:['Auf <b>Start</b> tippen und loslaufen','Live: Zeit, Kilometer, Tempo','Nach dem Lauf speichern oder mit der Gruppe teilen'],
    h:'<div class="sz"><svg viewBox="0 0 300 200" style="position:absolute;left:0;top:0;width:60%;height:100%"><path d="M30 170 C60 120, 40 80, 90 70 S150 110, 170 60 S230 30, 260 50" fill="none" stroke="#FF7A45" stroke-width="6" stroke-linecap="round" stroke-dasharray="420" stroke-dashoffset="420" style="animation:fxStrich 3.5s ease-in-out forwards;filter:drop-shadow(0 0 8px #FF7A45)"/><circle cx="30" cy="170" r="7" fill="#7FE0C0"/></svg>'+
      '<div class="kar rein" style="right:14px;top:56px;width:40%"><div class="klein">Distanz</div><div class="fxw"><span data-zahl="5.2" data-dez="1" style="font-size:28px">0,0</span> <span style="font-size:14px">km</span></div></div>'+
@@ -546,33 +551,33 @@
      '<div class="rein" style="position:absolute;right:14px;bottom:16px;animation-delay:.4s"><span class="pill po" style="font-size:14px;padding:8px 20px">■ Stopp</span></div></div>'},
   'Foto mit deinen Werten':{t:'Nach dem Lauf ein Foto machen – HEATS legt deine Werte im HEATS-Look darüber. Fertig für Instagram.',s:['Lauf beenden, <b>Foto</b> machen oder auswählen','Kilometer, Tempo und Zeit kommen automatisch drauf','Direkt in Instagram oder WhatsApp teilen'],
    h:'<div class="sz"><div class="rein" style="position:absolute;left:50%;top:14px;width:170px;height:262px;margin-left:-85px;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#ff9a6b,#7a3b8f 60%,#1b2a4a);box-shadow:0 20px 50px rgba(0,0,0,.6)">'+
-     '<div style="position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:64px">🏃‍♀️🏃</div>'+
+     '<div style="position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:40px">'+I('run','o')+' '+I('run','m')+'</div>'+
      '<div class="rein" style="position:absolute;left:10px;right:10px;bottom:10px;background:rgba(0,0,0,.55);border-radius:12px;padding:8px;animation-delay:1s"><b style="font-style:italic">/// HE<span style="color:var(--o)">A</span>TS</b><div style="display:flex;justify-content:space-between;font-weight:800;margin-top:4px"><span>8,4 km</span><span>5:15</span><span>44:06</span></div></div></div>'+
      '<div class="rein" style="position:absolute;right:16px;bottom:20px;animation-delay:1.8s"><span class="pill pl" style="font-size:13px;padding:7px 14px">Teilen ↗</span></div></div>'},
   'Nie allein im Dunkeln':{t:'Abends nicht allein laufen: Schließ dich einer Begleitgruppe an oder teile deinen Live-Standort mit Freunden.',s:['Begleitgruppen für <b>Abendläufe</b> finden','Live-Standort mit Freunden teilen – nur solange du willst','Ankunft melden, Teilen stoppt automatisch'],
-   h:'<div class="sz" style="background:radial-gradient(circle at 80% 15%, #2b2f55, #070a12 70%)"><div style="position:absolute;right:30px;top:18px;font-size:34px">🌙</div>'+
+   h:'<div class="sz" style="background:radial-gradient(circle at 80% 15%, #2b2f55, #070a12 70%)"><div style="position:absolute;right:30px;top:18px;font-size:34px">'+I('moon','l')+'</div>'+
      '<svg viewBox="0 0 300 200" style="position:absolute;inset:0;width:100%;height:100%"><path id="fxw" d="M20 170 Q100 40 180 120 T290 60" fill="none" stroke="rgba(169,155,255,.35)" stroke-width="4" stroke-dasharray="6 8"/>'+
      '<circle r="7" fill="#7FE0C0"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#fxw"/></animateMotion></circle><circle r="7" fill="#FF7A45"><animateMotion dur="5s" begin=".25s" repeatCount="indefinite"><mpath href="#fxw"/></animateMotion></circle><circle r="7" fill="#A99BFF"><animateMotion dur="5s" begin=".5s" repeatCount="indefinite"><mpath href="#fxw"/></animateMotion></circle></svg>'+
-     '<div class="kar rein" style="left:14px;top:14px;animation-delay:.5s">📡 Live geteilt mit <b>Lisa</b> & <b>Tom</b></div>'+
-     '<div class="kar rein" style="right:14px;bottom:14px;animation-delay:1.3s">🌙 Abendrunde · <b style="color:var(--m)">3 laufen mit</b></div></div>'},
+     '<div class="kar rein" style="left:14px;top:14px;animation-delay:.5s">'+I('radar','m')+' Live geteilt mit <b>Lisa</b> & <b>Tom</b></div>'+
+     '<div class="kar rein" style="right:14px;bottom:14px;animation-delay:1.3s">'+I('moon','l')+' Abendrunde · <b style="color:var(--m)">3 laufen mit</b></div></div>'},
   'Gruppen nur für Frauen':{t:'Gründerinnen können ihre Gruppe nur für Frauen öffnen – für alle, die lieber unter sich trainieren.',s:['Beim Gruppe-Gründen <b>„Nur für Frauen“</b> einschalten','Nur Frauen können beitreten und zusagen','Alles andere funktioniert wie bei jeder Gruppe'],
-   h:'<div class="sz"><div class="kar rein" style="left:50%;top:26px;width:250px;margin-left:-125px"><b>🏃‍♀️ Ladies Morning Run</b><div class="klein">Sa 08:00 · Seepromenade</div>'+
+   h:'<div class="sz"><div class="kar rein" style="left:50%;top:26px;width:250px;margin-left:-125px"><b>'+I('run','l')+' Ladies Morning Run</b><div class="klein">Sa 08:00 · Seepromenade</div>'+
      '<div style="margin:10px 0 6px;display:flex;align-items:center;justify-content:space-between"><span>Nur für Frauen</span><span style="width:42px;height:24px;border-radius:999px;background:var(--l);position:relative;display:inline-block"><span style="position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff"></span></span></div>'+
-     '<span class="pill pl">💜 Nur für Frauen</span></div>'+
-     '<div style="position:absolute;left:0;right:0;bottom:30px;text-align:center;font-size:34px;letter-spacing:4px"><span class="rein" style="display:inline-block;animation-delay:.6s">🏃‍♀️</span><span class="rein" style="display:inline-block;animation-delay:.9s">🚴‍♀️</span><span class="rein" style="display:inline-block;animation-delay:1.2s">🏋️‍♀️</span><span class="rein" style="display:inline-block;animation-delay:1.5s">🏃‍♀️</span></div></div>'},
-  'Abzeichen & Serien':{t:'Wer wirklich dabei ist, wird belohnt: Beim Treffen einchecken, Serien aufbauen, Abzeichen sammeln.',s:['Beim Treffen vor Ort <b>einchecken</b>','Jede Woche dabei = deine Serie wächst 🔥','Abzeichen fürs echte Dabeisein – nicht fürs Rumsitzen'],
+     '<span class="pill pl">'+I('heart','l')+' Nur für Frauen</span></div>'+
+     '<div style="position:absolute;left:0;right:0;bottom:30px;text-align:center;font-size:34px;letter-spacing:4px"><span class="rein" style="display:inline-block;animation-delay:.6s">'+I('run','l')+'</span><span class="rein" style="display:inline-block;animation-delay:.9s">'+I('bike','m')+'</span><span class="rein" style="display:inline-block;animation-delay:1.2s">'+I('barbell','l')+'</span><span class="rein" style="display:inline-block;animation-delay:1.5s">'+I('run','l')+'</span></div></div>'},
+  'Abzeichen & Serien':{t:'Wer wirklich dabei ist, wird belohnt: Beim Treffen einchecken, Serien aufbauen, Abzeichen sammeln.',s:['Beim Treffen vor Ort <b>einchecken</b>','Jede Woche dabei = deine Serie wächst '+I('flame','o')+'','Abzeichen fürs echte Dabeisein – nicht fürs Rumsitzen'],
    h:'<div class="sz"><div class="rein" style="position:absolute;left:24px;top:40px"><span class="pill pm" style="font-size:15px;padding:10px 18px">✓ Eingecheckt</span></div>'+
-     '<div class="kar rein" style="left:24px;top:110px;animation-delay:.6s"><div class="klein">Serie</div><div class="fxw">🔥 <span data-zahl="6" style="font-size:28px">0</span> Wochen</div></div>'+
-     '<div class="rein" style="position:absolute;right:40px;top:50px;font-size:84px;animation:fxRein .6s 1.4s ease-out forwards, fxWackel 1.6s 2s ease-in-out infinite">🏅</div>'+
+     '<div class="kar rein" style="left:24px;top:110px;animation-delay:.6s"><div class="klein">Serie</div><div class="fxw">'+I('flame','o')+' <span data-zahl="6" style="font-size:28px">0</span> Wochen</div></div>'+
+     '<div class="rein" style="position:absolute;right:40px;top:50px;font-size:52px;animation:fxRein .6s 1.4s ease-out forwards, fxWackel 1.6s 2s ease-in-out infinite">'+I('medal','o')+'</div>'+
      '<div class="rein" style="position:absolute;right:20px;bottom:26px;text-align:center;animation-delay:1.8s"><b>Neues Abzeichen!</b><div class="klein">10 Treffen dabei</div></div></div>'},
   'Städte-Duell':{t:'Jeden Monat treten Städte gegeneinander an: Welche Community läuft mehr Gruppen-Kilometer?',s:['Jeder Gruppenlauf zählt für <b>deine Stadt</b>','Live-Rangliste im Monat','Die Gewinner-Stadt bekommt ein Abzeichen für alle'],
-   h:'<div class="sz" style="padding:40px 24px"><div class="kar rein" style="left:16px;top:12px;padding:6px 14px;white-space:nowrap">⚔️ <b>November-Duell</b></div>'+
+   h:'<div class="sz" style="padding:40px 24px"><div class="kar rein" style="left:16px;top:12px;padding:6px 14px;white-space:nowrap">'+I('swords','o')+' <b>November-Duell</b></div>'+
      '<div style="position:absolute;left:24px;right:24px;top:80px"><b>Friedrichshafen</b><div style="height:26px;border-radius:999px;background:rgba(255,255,255,.07);margin:6px 0 4px;overflow:hidden"><div style="height:100%;width:78%;background:linear-gradient(90deg,var(--o),#ffb08a);border-radius:999px;animation:fxBalken 2.5s ease-out"></div></div><span class="klein">1.248 km</span></div>'+
      '<div style="position:absolute;left:24px;right:24px;top:160px"><b>Lindau</b><div style="height:26px;border-radius:999px;background:rgba(255,255,255,.07);margin:6px 0 4px;overflow:hidden"><div style="height:100%;width:61%;background:linear-gradient(90deg,var(--l),#cfc6ff);border-radius:999px;animation:fxBalken 2.5s ease-out"></div></div><span class="klein">976 km</span></div>'+
-     '<div class="rein" style="position:absolute;right:20px;bottom:14px;animation-delay:2.4s"><span class="pill po">🏆 FN führt!</span></div></div>'},
+     '<div class="rein" style="position:absolute;right:20px;bottom:14px;animation-delay:2.4s"><span class="pill po">'+I('trophy','o')+' FN führt!</span></div></div>'},
   'Zusammen zum Wettkampf':{t:'Stadtlauf oder Hyrox? Meldet euch als Gruppe gemeinsam an – und fahrt zusammen hin.',s:['Wettkampf in der Gruppe auswählen','Gemeinsam <b>anmelden</b> und sehen, wer dabei ist','Fahrgemeinschaft: freie Plätze anbieten oder mitfahren'],
-   h:'<div class="sz"><div class="kar rein" style="left:16px;top:18px"><b>🏁 Stadtlauf 10 km</b><div class="klein">So · 09:30 · 7 aus deiner Gruppe</div></div>'+
-     '<div style="position:absolute;left:40px;top:110px;font-size:80px;animation:fxFahrt 3s ease-out forwards">🚗</div>'+
+   h:'<div class="sz"><div class="kar rein" style="left:16px;top:18px"><b>'+I('flag','o')+' Stadtlauf 10 km</b><div class="klein">So · 09:30 · 7 aus deiner Gruppe</div></div>'+
+     '<div style="position:absolute;left:40px;top:110px;font-size:50px;animation:fxFahrt 3s ease-out forwards">'+I('car','m')+'</div>'+
      '<div class="kar rein" style="right:16px;top:110px;animation-delay:1.6s"><div class="klein">Fahrgemeinschaft</div><b>Plätze: <span style="color:var(--m)">● ● ●</span> <span style="color:var(--grau)">○</span></b></div>'+
      '<div class="rein" style="position:absolute;right:16px;bottom:18px;animation-delay:2.2s"><span class="pill pm" style="font-size:13px;padding:7px 14px">✓ Wir sind dabei</span></div></div>'}
   };
