@@ -171,6 +171,25 @@
   #spot.gross .s-unten { font-size:17px; padding:50px 18px 20px; } #spot.gross .s-unten small { font-size:13px; }
   #spot .s-balken { position:absolute; left:0; right:0; bottom:0; height:3px; z-index:3; background:rgba(255,255,255,.15); }
   #spot .s-balken i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--o),var(--m),var(--l)); }
+  /* Handy-Version: Video im Querformat oben statt kleinem Player */
+  #m-video { display:none; }
+  @media (max-width:760px){
+    #spot, #spot-schatten { display:none !important; }
+    #m-video { display:block; padding:14px 14px 0; }
+    #m-video .mv-rahmen { position:relative; aspect-ratio:16/9; border-radius:20px; overflow:hidden; background:#000; box-shadow:0 0 0 2px var(--o), 0 14px 40px -10px var(--o); }
+    #m-video video { position:absolute; inset:0; width:100%; height:100%; display:block; }
+    #m-video .mv-hg { object-fit:cover; filter:blur(18px) brightness(.55) saturate(1.3); transform:scale(1.25); }
+    #m-video .mv-vg { object-fit:contain; }
+    #m-video button { position:absolute; z-index:3; border:0; background:rgba(0,0,0,.6); color:#fff; font:inherit; font-weight:800; cursor:pointer; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    #m-video .mv-ton { top:8px; left:8px; height:30px; border-radius:999px; padding:0 12px; font-size:12px; }
+    #m-video .mv-ton.stumm { background:var(--o); color:#0b100f; animation:tippPuls 1.4s ease-in-out infinite; }
+    #m-video .mv-gross { top:8px; right:8px; width:30px; height:30px; border-radius:50%; font-size:15px; padding:0; }
+    #m-video .mv-weiter { right:8px; bottom:14px; height:30px; border-radius:999px; padding:0 12px; font-size:12px; }
+    #m-video .mv-titel { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:26px 100px 12px 12px; background:linear-gradient(transparent, rgba(0,0,0,.8)); font-size:14px; font-weight:800; line-height:1.2; }
+    #m-video .mv-balken { position:absolute; left:0; right:0; bottom:0; height:3px; z-index:3; background:rgba(255,255,255,.15); }
+    #m-video .mv-balken i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--o),var(--m),var(--l)); }
+    .hero { padding-top:30px; }
+  }
     @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } .reveal{opacity:1;transform:none;} }
 </style>
 </head>
@@ -224,7 +243,7 @@
   function tonText(){ tb.textContent=v.muted?'🔇 Tippen für Ton':'🔊 Ton aus'; tb.classList.toggle('stumm',v.muted); }
   function spielen(){ v.muted=false; var p=v.play(); if(p&&p.catch)p.catch(function(){ v.muted=true; tonText(); v.play().catch(function(){}); }); tonText(); }
   function naechstes(){ if(!reihe.length)mischen(); var x=reihe.shift(); v.src='HEATS-Webseite/videos/'+x[0]+'.mp4'; v.poster='HEATS-Webseite/videos/'+x[0]+'.jpg'; sp.querySelector('.s-titel').textContent=x[1]; spielen(); }
-  window.spotStart=function(){ if(gestartet||zu)return; gestartet=true; sp.hidden=false; mischen(); naechstes(); setTimeout(function(){ sp.classList.add('da'); },400); };
+  window.spotStart=function(){ if(window.matchMedia('(max-width:760px)').matches){ if(window.mvStart)window.mvStart(); return; } if(gestartet||zu)return; gestartet=true; sp.hidden=false; mischen(); naechstes(); setTimeout(function(){ sp.classList.add('da'); },400); };
   function klein(){ sp.classList.remove('gross'); sch.classList.remove('an'); hinweis.textContent='Antippen zum Anschauen'; }
   v.addEventListener('ended',naechstes);
   v.addEventListener('timeupdate',function(){ if(v.duration)sp.querySelector('.s-balken i').style.width=(v.currentTime/v.duration*100)+'%'; });
@@ -255,6 +274,41 @@
     </nav>
   </div>
 </header>
+
+<div id="m-video" aria-label="HEATS Videos">
+  <div class="mv-rahmen">
+    <video class="mv-hg" playsinline muted preload="auto" aria-hidden="true"></video>
+    <video class="mv-vg" playsinline preload="auto"></video>
+    <button class="mv-ton" type="button">🔊</button>
+    <button class="mv-gross" type="button" aria-label="Vollbild">⛶</button>
+    <button class="mv-weiter" type="button">Nächstes ›</button>
+    <div class="mv-titel"></div>
+    <div class="mv-balken"><i></i></div>
+  </div>
+</div>
+<script>(function(){
+  var box=document.getElementById('m-video');
+  if(!window.matchMedia('(max-width:760px)').matches||/access_token|type=signup|code=|token_hash|error/.test((location.hash||'')+'&'+(location.search||''))){ box.remove(); return; }
+  var liste=[['heats-werbung','Allein laufen? War gestern.'],['heats-paerchen','Sofa oder Sport?'],['heats-lebendig','Zusammen macht Sport mehr Spaß'],['heats-shut-up','Erst mitlaufen, dann mitreden'],['heats-community','Aus Fremden werden Freunde'],['heats-radfahren','Radfahren. Hingehen.'],['heats-so-gehts','So findest du deine Crew']];
+  var v=box.querySelector('.mv-vg'), hg=box.querySelector('.mv-hg'), tb=box.querySelector('.mv-ton'), reihe=[];
+  function mischen(){ reihe=liste.slice(); for(var i=reihe.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=reihe[i]; reihe[i]=reihe[j]; reihe[j]=t; } }
+  function tonText(){ tb.textContent=v.muted?'🔇 Tippen für Ton':'🔊 Ton aus'; tb.classList.toggle('stumm',v.muted); }
+  function spielen(){ v.muted=false; var p=v.play(); if(p&&p.catch)p.catch(function(){ v.muted=true; tonText(); v.play().catch(function(){}); }); hg.play().catch(function(){}); tonText(); }
+  function naechstes(){ if(!reihe.length)mischen(); var x=reihe.shift(), s='HEATS-Webseite/videos/'+x[0]; v.src=hg.src=s+'.mp4'; v.poster=hg.poster=s+'.jpg'; box.querySelector('.mv-titel').textContent=x[1]; spielen(); }
+  v.addEventListener('ended',naechstes);
+  v.addEventListener('timeupdate',function(){ if(v.duration)box.querySelector('.mv-balken i').style.width=(v.currentTime/v.duration*100)+'%'; if(Math.abs(hg.currentTime-v.currentTime)>.4)hg.currentTime=v.currentTime; });
+  v.addEventListener('pause',function(){ hg.pause(); }); v.addEventListener('play',function(){ hg.play().catch(function(){}); });
+  tb.addEventListener('click',function(e){ e.stopPropagation(); v.muted=!v.muted; tonText(); if(v.paused)v.play(); });
+  box.querySelector('.mv-weiter').addEventListener('click',function(e){ e.stopPropagation(); naechstes(); });
+  box.querySelector('.mv-gross').addEventListener('click',function(e){ e.stopPropagation(); v.muted=false; tonText(); if(v.webkitEnterFullscreen)v.webkitEnterFullscreen(); else if(v.requestFullscreen)v.requestFullscreen(); });
+  box.querySelector('.mv-rahmen').addEventListener('click',function(){ if(v.muted){ v.muted=false; tonText(); v.play(); } else if(v.paused)v.play(); else v.pause(); });
+  // Ton beim ersten Tippen irgendwo auf der Seite einschalten (iPhone erlaubt Ton erst nach Berührung)
+  function erste(e){ if(box.contains(e.target))return; if(v.muted){ v.muted=false; tonText(); v.play().catch(function(){}); } document.removeEventListener('touchend',erste,true); document.removeEventListener('click',erste,true); }
+  document.addEventListener('touchend',erste,true); document.addEventListener('click',erste,true);
+  var los=false; mischen(); var erstes=reihe[0]; v.poster=hg.poster='HEATS-Webseite/videos/'+erstes[0]+'.jpg'; box.querySelector('.mv-titel').textContent=erstes[1];
+  window.mvStart=function(){ if(los)return; los=true; naechstes(); };
+  if(!document.getElementById('intro'))window.mvStart();
+})();</script>
 
 <div class="hero">
   <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
