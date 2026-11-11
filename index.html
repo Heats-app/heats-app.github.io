@@ -11,7 +11,7 @@
 <style>
   :root { --bg:#0b100f; --karte:#151b1a; --karte2:#1c2423; --text:#eef3f1; --grau:#9aa5a2; --o:#FF7A45; --m:#7FE0C0; --l:#A99BFF; }
   * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; overflow-x:hidden; }
   body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system, "SF Pro Display", Helvetica, Arial, sans-serif; line-height:1.55; overflow-x:hidden; }
   a { color:inherit; }
   .wrap { max-width:1120px; margin:0 auto; padding:0 22px; }
@@ -30,7 +30,7 @@
   @media (max-width:760px){ nav a:not(.knopf-klein){ display:none; } }
 
   /* Hero */
-  .hero { position:relative; padding:80px 0 70px; }
+  .hero { position:relative; padding:80px 0 70px; overflow:hidden; }
   .glow { position:absolute; border-radius:50%; filter:blur(90px); opacity:.35; pointer-events:none; }
   .g1 { width:420px; height:420px; background:var(--o); top:-120px; left:-120px; }
   .g2 { width:380px; height:380px; background:var(--l); top:60px; right:-140px; }
@@ -139,12 +139,12 @@
   @keyframes licht { 50% { opacity:.35; } 100% { opacity:.18; } }
   #intro .zeile-l { display:flex; align-items:center; gap:clamp(14px,3vw,30px); position:relative; }
   #intro .ib { display:flex; gap:clamp(8px,1.6vw,16px); }
-  #intro .ib span { display:block; width:clamp(18px,3.4vw,34px); height:clamp(80px,15vw,150px); border-radius:8px; transform:skewX(-18deg) translateY(120vh); animation:bahn .8s cubic-bezier(.2,1.3,.4,1) forwards; }
+  #intro .ib span { display:block; width:clamp(12px,3.4vw,34px); height:clamp(56px,13vw,150px); border-radius:8px; transform:skewX(-18deg) translateY(120vh); animation:bahn .8s cubic-bezier(.2,1.3,.4,1) forwards; }
   #intro .ib span:nth-child(1){ background:var(--o); animation-delay:.15s; box-shadow:0 0 40px var(--o); }
   #intro .ib span:nth-child(2){ background:var(--m); animation-delay:.3s; box-shadow:0 0 40px var(--m); }
   #intro .ib span:nth-child(3){ background:var(--l); animation-delay:.45s; box-shadow:0 0 40px var(--l); }
   @keyframes bahn { to { transform:skewX(-18deg) translateY(0); } }
-  #intro .iw { font-size:clamp(64px,14vw,168px); font-weight:900; font-style:italic; letter-spacing:2px; line-height:1; color:#fff; display:flex; }
+  #intro .iw { font-size:clamp(40px,12.5vw,168px); font-weight:900; font-style:italic; letter-spacing:2px; line-height:1; color:#fff; display:flex; }
   #intro .iw i { font-style:inherit; display:inline-block; opacity:0; transform:translateX(60px) skewX(-12deg); filter:blur(10px); animation:buchst .55s cubic-bezier(.2,.9,.3,1) forwards; }
   #intro .iw i:nth-child(1){animation-delay:.75s} #intro .iw i:nth-child(2){animation-delay:.83s} #intro .iw i:nth-child(3){animation-delay:.91s; color:var(--o); text-shadow:0 0 30px var(--o);} #intro .iw i:nth-child(4){animation-delay:.99s} #intro .iw i:nth-child(5){animation-delay:1.07s}
   @keyframes buchst { to { opacity:1; transform:none; filter:none; } }
@@ -153,6 +153,8 @@
   #intro .strich { height:6px; width:0; margin-top:18px; border-radius:6px; background:linear-gradient(90deg,var(--o),var(--m),var(--l)); box-shadow:0 0 24px rgba(255,122,69,.6); animation:strich .7s ease-out 1.25s forwards; }
   @keyframes strich { to { width:min(70vw,560px); } }
   #intro .slogan { margin-top:22px; font-size:clamp(17px,2.6vw,26px); font-weight:700; color:#dfe6e3; letter-spacing:.5px; opacity:0; transform:translateY(14px); animation:buchst .6s ease-out 1.6s forwards; }
+  #intro .tipp { position:absolute; bottom:max(48px, env(safe-area-inset-bottom)); padding:14px 26px; border-radius:999px; background:var(--o); color:#0b100f; font-weight:900; font-size:18px; box-shadow:0 0 40px rgba(255,122,69,.6); opacity:0; animation:buchst .5s ease-out 1.9s forwards, tippPuls 1.6s ease-in-out 2.4s infinite; }
+  @keyframes tippPuls { 50% { transform:scale(1.07); box-shadow:0 0 60px rgba(255,122,69,.9); } }
   #intro .slogan b { color:var(--m); }
   /* Werbe-Player unten links */
   #spot { position:fixed; left:16px; bottom:16px; z-index:60; width:min(34vw,190px); aspect-ratio:9/16; border-radius:20px; overflow:hidden; background:#000; box-shadow:0 18px 50px rgba(0,0,0,.6), 0 0 0 2px var(--o), 0 0 40px -8px var(--o); transform:translateX(calc(-100% - 40px)); transition:transform .7s cubic-bezier(.2,1.1,.3,1), width .45s ease, left .45s ease, bottom .45s ease, border-radius .45s; cursor:pointer; }
@@ -168,23 +170,24 @@
   #spot.gross .s-unten { font-size:17px; padding:50px 18px 20px; } #spot.gross .s-unten small { font-size:13px; }
   #spot .s-balken { position:absolute; left:0; right:0; bottom:0; height:3px; z-index:3; background:rgba(255,255,255,.15); }
   #spot .s-balken i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--o),var(--m),var(--l)); }
-  @media (prefers-reduced-motion:reduce){ #intro { display:none; } }
-  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } .reveal{opacity:1;transform:none;} }
+    @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } .reveal{opacity:1;transform:none;} }
 </style>
 </head>
 <body>
 <script>document.documentElement.classList.add('js');if(/[?&]alle/.test(location.search))document.documentElement.classList.remove('js');setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('da')})},4000);</script>
 
-<div id="intro" aria-hidden="true">
+<div id="intro" role="button" tabindex="0" aria-label="HEATS starten">
   <div class="licht a"></div><div class="licht b"></div>
   <div class="zeile-l"><div class="ib"><span></span><span></span><span></span></div><div class="iw"><i>H</i><i>E</i><i>A</i><i>T</i><i>S</i></div><div class="glanz"></div></div>
   <div class="strich"></div>
   <div class="slogan">Sport zusammen. <b>In deiner Stadt.</b></div>
+  <div class="tipp">🔊 Antippen zum Starten</div>
 </div>
 <script>(function(){
   var el=document.getElementById('intro');
   function weg(){ if(!el||el.classList.contains('weg'))return; el.classList.add('weg'); setTimeout(function(){el.remove()},900); if(window.spotStart)window.spotStart(); }
-  if(el){ el.addEventListener('click',weg); setTimeout(weg,3000); }
+  var bestaetigung=/access_token|type=signup|code=|token_hash|error/.test((location.hash||'')+'&'+(location.search||''));
+  if(el){ el.addEventListener('click',weg); el.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' ')weg(); }); if(bestaetigung)setTimeout(weg,3000); }
 })();</script>
 
 <div id="bestaetigt" role="dialog" aria-modal="true">
