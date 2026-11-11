@@ -220,7 +220,7 @@
   var v=sp.querySelector('video'), tb=sp.querySelector('.s-ton'), hinweis=sp.querySelector('small');
   var reihe=[], gestartet=false, zu=false;
   function mischen(){ reihe=liste.slice(); for(var i=reihe.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=reihe[i]; reihe[i]=reihe[j]; reihe[j]=t; } }
-  function tonText(){ tb.textContent=v.muted?'🔇 Tippen für Ton':'🔊'; tb.classList.toggle('stumm',v.muted); }
+  function tonText(){ tb.textContent=v.muted?'🔇 Tippen für Ton':'🔊 Ton aus'; tb.classList.toggle('stumm',v.muted); }
   function spielen(){ v.muted=false; var p=v.play(); if(p&&p.catch)p.catch(function(){ v.muted=true; tonText(); v.play().catch(function(){}); }); tonText(); }
   function naechstes(){ if(!reihe.length)mischen(); var x=reihe.shift(); v.src='HEATS-Webseite/videos/'+x[0]+'.mp4'; v.poster='HEATS-Webseite/videos/'+x[0]+'.jpg'; sp.querySelector('.s-titel').textContent=x[1]; spielen(); }
   window.spotStart=function(){ if(gestartet||zu)return; gestartet=true; sp.hidden=false; mischen(); naechstes(); setTimeout(function(){ sp.classList.add('da'); },400); };
