@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hilfe & Fragen – HEATS</title>
+<meta name="description" content="So funktioniert HEATS: mitmachen, Gruppe gründen, mitverdienen, Auszahlung und Steuern – einfach erklärt.">
+<style>
+  :root { --bg:#0b100f; --karte:#151b1a; --karte2:#1c2423; --text:#eef3f1; --grau:#9aa5a2; --o:#FF7A45; --m:#7FE0C0; --l:#A99BFF; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system, "SF Pro Display", Helvetica, Arial, sans-serif; line-height:1.6; }
+  .seite { max-width:780px; margin:0 auto; padding:28px 20px 60px; }
+  .kopf { display:flex; align-items:center; gap:14px; margin-bottom:26px; text-decoration:none; color:#fff; }
+  .bahnen { display:flex; gap:6px; } .bahnen span { width:9px; height:34px; border-radius:3px; transform:skewX(-18deg); }
+  .logo { font-size:28px; font-weight:800; letter-spacing:1px; } .logo b { color:var(--o); }
+  h1 { font-size:34px; line-height:1.15; margin:0 0 8px; }
+  .intro { color:var(--grau); font-size:17px; margin:0 0 22px; }
+  .sprung { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 26px; }
+  .sprung a { text-decoration:none; color:#dfe6e3; background:var(--karte); border:1px solid #233; border-radius:999px; padding:7px 14px; font-size:14px; font-weight:600; }
+  .sprung a:hover { border-color:var(--o); }
+  details { background:var(--karte); border:1px solid #1f2827; border-radius:18px; margin:12px 0; overflow:hidden; scroll-margin-top:16px; }
+  details[open] { border-color:var(--farbe, var(--o)); }
+  summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:14px; padding:16px 18px; font-size:18px; font-weight:700; }
+  summary::-webkit-details-marker { display:none; }
+  summary .kreis { width:40px; height:40px; border-radius:50%; background:var(--farbe, var(--o)); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  summary .kreis svg { width:22px; height:22px; stroke:#0b100f; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  summary small { display:block; color:var(--grau); font-size:14px; font-weight:500; }
+  summary .pfeil { margin-left:auto; color:var(--grau); transition:transform .2s; font-size:20px; }
+  details[open] summary .pfeil { transform:rotate(180deg); }
+  .inhalt { padding:0 20px 18px 20px; color:#c9d1ce; font-size:16px; }
+  .inhalt h3 { color:#fff; font-size:17px; margin:18px 0 6px; }
+  .inhalt ol, .inhalt ul { padding-left:22px; margin:6px 0; } .inhalt li { margin:4px 0; }
+  .inhalt b { color:#fff; }
+  .box { background:var(--karte2); border-radius:14px; padding:12px 14px; margin:12px 0; }
+  .box.warn { border-left:4px solid #FFC857; border-radius:0 14px 14px 0; }
+  .box.info { border-left:4px solid var(--m); border-radius:0 14px 14px 0; }
+  .zwei { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:12px 0; }
+  .zwei .box { margin:0; } .zwei b { display:block; margin-bottom:4px; }
+  @media (max-width:560px) { .zwei { grid-template-columns:1fr; } h1 { font-size:28px; } }
+  a { color:var(--m); }
+  .kontakt { text-align:center; margin-top:30px; background:var(--karte); border-radius:18px; padding:20px; }
+  .kontakt a.knopf { display:inline-block; margin-top:8px; background:var(--o); color:#fff; text-decoration:none; font-weight:800; padding:12px 22px; border-radius:999px; }
+  .fuss { margin-top:34px; color:#7d8784; font-size:14px; text-align:center; }
+</style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/bilder/favicon-32.png">
+<link rel="apple-touch-icon" href="/bilder/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="HEATS">
+</head>
+<body>
+<div class="seite">
+<a class="kopf" href="https://heats-app.de"><div class="bahnen"><span style="background:#FF7A45"></span><span style="background:#7FE0C0"></span><span style="background:#A99BFF"></span></div><div class="logo">HE<b>A</b>TS</div></a>
+
+<h1>Hilfe &amp; Fragen</h1>
+<p class="intro">Alles, was du über HEATS wissen musst – egal ob du einfach mitlaufen oder deine eigene Gruppe gründen willst. Tipp auf ein Thema, um es aufzuklappen.</p>
+
+<div class="sprung">
+  <a href="#mitmachen">Mitmachen</a>
+  <a href="#gruenden">Gruppe gründen</a>
+  <a href="#verdienen">Mitverdienen</a>
+  <a href="#geld">Geld &amp; Auszahlung</a>
+  <a href="#steuern">Steuern</a>
+  <a href="#sicherheit">Sicherheit</a>
+  <a href="#konto">Konto</a>
+  <a href="#faq">Häufige Fragen</a>
+</div>
+
+<!-- 1 Mitmachen -->
+<details id="mitmachen" style="--farbe:#7FE0C0">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg></span><span>Für alle: so machst du mit<small>Konto, Gruppe finden, zusagen, einchecken</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <h3>In 5 Schritten zum ersten Treffen</h3>
+    <ol>
+      <li><b>App laden und Konto erstellen</b> – mit E-Mail und Passwort (mind. 8 Zeichen, Buchstaben und Zahlen). Bestätige danach den Link in deiner E-Mail.</li>
+      <li><b>Name und Stadt eintragen</b> – damit dir Gruppen in deiner Nähe angezeigt werden.</li>
+      <li><b>Gruppe finden</b> – unter <b>Entdecken</b> siehst du Gruppen und Treffen in deinem Umkreis (Standard 10 km, einstellbar bis 300 km). Filtere nach Laufen, Radtour oder Hyrox.</li>
+      <li><b>Beitreten und zusagen</b> – tipp auf eine Gruppe, dann auf „Beitreten“. Bei einem Treffen tippst du auf „Zusagen“. Eine Stunde vorher erinnert dich die App.</li>
+      <li><b>Hingehen und einchecken</b> – vor Ort tippst du „Ich bin da – einchecken“. Check-ins zählen für deine Abzeichen und Wochen-Serie.</li>
+    </ol>
+    <h3>Was du sonst noch machen kannst</h3>
+    <ul>
+      <li><b>Gruppen-Chat</b> mit allen Mitgliedern deiner Gruppe.</li>
+      <li><b>Lauf aufzeichnen</b> im Lauf-Tab (km, Tempo) und als Foto für Instagram teilen.</li>
+      <li><b>Wetter</b> zum Treffen direkt sehen – Temperatur und Regenwahrscheinlichkeit.</li>
+      <li><b>Kaffee danach</b> – die Gruppe kann ein Café in der Nähe festlegen, inklusive Route.</li>
+      <li><b>Tempo im Profil</b> eintragen – Gruppen mit passendem Tempo werden grün markiert.</li>
+    </ul>
+    <div class="box info">Jeder meldet sich mit seinem eigenen Profil an – auch Paare und Freunde. Jede Gruppe ist für alle offen.</div>
+  </div>
+</details>
+
+<!-- 2 Gruppe gründen -->
+<details id="gruenden" style="--farbe:#FF7A45">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg></span><span>Gruppe gründen<small>So läuft es für Gründer ab</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <p>Eine Gruppe zu gründen ist <b>komplett gratis</b> und dauert etwa 30 Sekunden.</p>
+    <h3>So geht's</h3>
+    <ol>
+      <li>Unten auf <b>Clubs</b> tippen.</li>
+      <li><b>Name</b>, <b>Sportart</b> (Laufen, Radtour, Hyrox), <b>Stadt</b> und eine kurze <b>Beschreibung</b> eintragen.</li>
+      <li>Entscheiden: <b>Mitverdienen</b> an oder aus (siehe nächster Punkt) und ob die Gruppe <b>nur für Frauen</b> ist.</li>
+      <li>Speichern – fertig. Du bist automatisch Gründer und erstes Mitglied.</li>
+    </ol>
+    <h3>Als Gründer kannst du</h3>
+    <ul>
+      <li><b>Treffen ansetzen</b> – Ort, Datum, Uhrzeit, Tempo. Mit „Wiederholen“ legst du z. B. <b>jeden Mittwoch</b> für 4, 8 oder 12 Termine auf einmal an.</li>
+      <li><b>Begleitlauf</b> markieren – für Abendläufe: zusammen los, zusammen zurück.</li>
+      <li><b>Freunde einladen</b> – Link per WhatsApp, Instagram &amp; Co. teilen.</li>
+      <li><b>Beschreibung bearbeiten</b> und das <b>Café danach</b> für die Gruppe festlegen.</li>
+      <li>Sehen, <b>wer zusagt</b> und wer eingecheckt hat.</li>
+    </ul>
+    <div class="box warn">Gründer sind keine Trainer und keine Veranstalter im rechtlichen Sinn. Jeder Teilnehmer macht Sport auf eigene Verantwortung. Du bist aber für die Angaben deiner Gruppe (Beschreibung, Treffpunkte) verantwortlich.</div>
+  </div>
+</details>
+
+<!-- 3 Mitverdienen -->
+<details id="verdienen" style="--farbe:#A99BFF">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5a3.5 3.5 0 1 0 0 5"/><path d="M8 11h5M8 13h5"/></svg></span><span>Mitverdienen – ja oder nein?<small>Du entscheidest selbst</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <p>Beim Gründen wählst du, was für eine Gruppe du willst:</p>
+    <div class="zwei">
+      <div class="box"><b>😊 Spaß-Gruppe (Mitverdienen aus)</b>Du willst einfach zusammen Sport machen. Kein Geld, keine Steuer-Themen, kein Aufwand.</div>
+      <div class="box"><b>💸 Mitverdienen an</b>Wenn deine Gruppe wächst, bekommst du einen Anteil – eine Win-win-Situation für dich und HEATS.</div>
+    </div>
+    <ul>
+      <li>Mitverdienen ist <b>freiwillig</b>. Niemand muss etwas verdienen.</li>
+      <li>Für Mitglieder bleibt Mitmachen in jeder Gruppe gleich – egal, ob der Gründer mitverdient oder nicht.</li>
+      <li>Die genauen Bedingungen (wie viel, wofür, ab wann) veröffentlichen wir <b>vor dem Start</b> des Mitverdienens hier und in der App.</li>
+    </ul>
+  </div>
+</details>
+
+<!-- 4 Geld -->
+<details id="geld" style="--farbe:#A99BFF">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/></svg></span><span>Geld &amp; Auszahlung<small>Wie Gründer ihr Geld bekommen</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <div class="box info"><b>Aktueller Stand:</b> Die Auszahlung startet mit dem offiziellen Start des Mitverdienens. Bis dahin wird noch kein Geld ausgezahlt.</div>
+    <h3>So soll es ablaufen</h3>
+    <ol>
+      <li>Du schaltest bei deiner Gruppe <b>Mitverdienen</b> ein.</li>
+      <li>Du hinterlegst in deinem Profil deine <b>Bankverbindung</b> und deine <b>Steuer-Identifikationsnummer</b> (steht z. B. auf deinem Einkommensteuerbescheid oder Lohnzettel).</li>
+      <li>In der App siehst du jederzeit, was deine Gruppe eingebracht hat.</li>
+      <li>Das Geld wird dir regelmäßig auf dein Konto überwiesen.</li>
+    </ol>
+    <p>Sobald alles feststeht, ergänzen wir hier die genauen Beträge und Termine.</p>
+  </div>
+</details>
+
+<!-- 5 Steuern -->
+<details id="steuern" style="--farbe:#FFC857">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h7M9 17h5"/></svg></span><span>Anmelden &amp; Steuern<small>Was du als Gründer wissen solltest</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <div class="box warn">Das hier sind <b>allgemeine Hinweise, keine Steuer- oder Rechtsberatung</b>. Was für dich gilt, hängt von deiner persönlichen Situation ab. Frag im Zweifel dein Finanzamt oder eine Steuerberatung.</div>
+    <h3>Spaß-Gruppe?</h3>
+    <p>Wenn du nicht mitverdienst, musst du nichts anmelden und nichts versteuern.</p>
+    <h3>Mitverdienen? Das solltest du wissen</h3>
+    <ul>
+      <li><b>Einnahmen gehören in die Steuererklärung.</b> Geld, das du über HEATS bekommst, gibst du in deiner Einkommensteuererklärung an.</li>
+      <li><b>Gewerbe anmelden?</b> Wenn du regelmäßig und dauerhaft damit Geld verdienen willst, kann eine Gewerbeanmeldung nötig sein. Das machst du bei deiner Stadt bzw. Gemeinde (Gewerbeamt), oft auch online.</li>
+      <li><b>Umsatzsteuer:</b> Für kleine Einnahmen gibt es die sogenannte Kleinunternehmerregelung – dann musst du meist keine Umsatzsteuer ausweisen. Die Grenzen dafür ändern sich, also bitte aktuell beim Finanzamt nachsehen.</li>
+      <li><b>Angestellt?</b> Ein Nebenverdienst ist meist erlaubt – sag aber im Zweifel deinem Arbeitgeber Bescheid.</li>
+      <li><b>Belege aufheben:</b> Bewahre deine Abrechnungen auf, damit du deine Einnahmen nachweisen kannst.</li>
+    </ul>
+    <p>Du bist für deine Steuern selbst verantwortlich. Sobald das Mitverdienen startet, erinnert dich HEATS in der App daran, deine Steuer-ID einzutragen, und zeigt dir deine Einnahmen übersichtlich an.</p>
+  </div>
+</details>
+
+<!-- 6 Sicherheit -->
+<details id="sicherheit" style="--farbe:#7FE0C0">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span>Sicherheit &amp; Fair Play<small>Melden, blockieren, Privatsphäre</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <ul>
+      <li><b>Kennenlernen nur, wenn du willst:</b> Im Profil stellst du selbst ein, ob dir andere privat schreiben dürfen.</li>
+      <li><b>Privatmodus:</b> Andere sehen dann nur deinen Namen und dein Foto – nicht deine Läufe, km, Tempo oder Instagram.</li>
+      <li><b>Melden &amp; Blockieren:</b> Auf jedem Profil möglich. Wir prüfen jede Meldung und sperren Konten, die sich nicht benehmen.</li>
+      <li><b>Wortfilter:</b> Beleidigungen werden automatisch gesperrt.</li>
+      <li><b>Nur für Frauen:</b> Gruppen mit dieser Einstellung sind nur für Frauen gedacht.</li>
+      <li><b>Begleitläufe:</b> Nie mehr allein im Dunkeln – zusammen los, zusammen zurück.</li>
+    </ul>
+    <div class="box info">Sport auf eigene Verantwortung: Achte auf deine Gesundheit und den Straßenverkehr. Werte wie km, Tempo oder Puls können ungenau sein.</div>
+  </div>
+</details>
+
+<!-- 7 Konto -->
+<details id="konto" style="--farbe:#FF7A45">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span><span>Konto &amp; Daten<small>Passwort, Profil, Konto löschen</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <ul>
+      <li><b>Profil ändern:</b> Unten auf <b>Profil</b>, dann oben rechts auf das <b>Rädchen</b>.</li>
+      <li><b>Passwort vergessen:</b> Auf der Anmeldeseite „Passwort vergessen?“ tippen – du bekommst einen Link per E-Mail.</li>
+      <li><b>Sprache:</b> Die App erscheint automatisch in der Sprache deines Handys (Deutsch oder Englisch).</li>
+      <li><b>Konto löschen:</b> Ganz unten im Profil. Dein Profil, deine Läufe, Zusagen und Gruppen werden dann endgültig gelöscht.</li>
+      <li><b>Deine Daten:</b> Server in der EU, keine Werbung von Dritten, kein Datenverkauf. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</li>
+    </ul>
+  </div>
+</details>
+
+<!-- 8 FAQ -->
+<details id="faq" style="--farbe:#7FE0C0">
+  <summary><span class="kreis"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.7"/><path d="M12 17h.01"/></svg></span><span>Häufige Fragen<small>Kurz und knapp</small></span><span class="pfeil">⌄</span></summary>
+  <div class="inhalt">
+    <h3>Kostet HEATS etwas?</h3>
+    <p>Die Grundfunktionen sind kostenlos – auch eine Gruppe zu gründen. Falls es später kostenpflichtige Extras gibt, sagen wir es dir vorher klar.</p>
+    <h3>Wo bekomme ich die App?</h3>
+    <p>HEATS kommt bald in den App Store, danach auch zu Google Play. Den Link findest du auf <a href="app.html">heats-app.de/app.html</a>.</p>
+    <h3>In meiner Stadt gibt es noch keine Gruppe – was tun?</h3>
+    <p>Gründe die erste! Es kostet nichts, und du bestimmst Ort, Zeit und Tempo.</p>
+    <h3>Ich bin nicht schnell – kann ich trotzdem mit?</h3>
+    <p>Klar. Viele Treffen haben ein Tempo angegeben, und Gruppen mit deinem Tempo werden für dich grün markiert.</p>
+    <h3>Können Paare oder Freunde zusammen kommen?</h3>
+    <p>Ja, alle Gruppen sind für alle offen. Jeder meldet sich nur mit seinem eigenen Profil an.</p>
+    <h3>Welche Sportarten gibt es?</h3>
+    <p>Zum Start Laufen, Radtour und Hyrox – weitere kommen später.</p>
+  </div>
+</details>
+
+<div class="kontakt">
+  <b style="font-size:18px">Noch Fragen?</b>
+  <p style="color:var(--grau);margin:6px 0 4px">Schreib uns – wir helfen dir gern.</p>
+  <a class="knopf" href="mailto:info@heats-app.de">info@heats-app.de</a>
+</div>
+
+<p class="fuss">© 2026 Ferat Yilmaz · HEATS. Alle Rechte vorbehalten.<br><a href="datenschutz.html">Datenschutz</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="impressum.html">Impressum</a></p>
+</div>
+<script>
+  // Sprung-Links öffnen das passende Kapitel
+  function oeffnen(){ var d=document.getElementById((location.hash||'').slice(1)); if(d&&d.tagName==='DETAILS'){ d.open=true; d.scrollIntoView({behavior:'smooth'}); } }
+  window.addEventListener('hashchange',oeffnen); oeffnen();
+</script>
+</body>
+</html>
