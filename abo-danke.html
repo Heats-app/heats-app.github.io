@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danke – HEATS</title>
+<style>
+  body { margin:0; background:#0b100f; color:#e9eeec; font-family:-apple-system, Helvetica, Arial, sans-serif; line-height:1.6; }
+  .seite { max-width:760px; margin:0 auto; padding:32px 22px 60px; }
+  .kopf { display:flex; align-items:center; gap:14px; margin-bottom:26px; text-decoration:none; color:#fff; }
+  .bahnen { display:flex; gap:6px; }
+  .bahnen span { width:9px; height:34px; border-radius:3px; transform:skewX(-18deg); }
+  .logo { font-size:28px; font-weight:800; letter-spacing:1px; } .logo b { color:#FF7A45; }
+  h1 { font-size:32px; margin:0 0 4px; }
+  .stand { color:#9aa5a2; margin:0 0 26px; }
+  h2 { font-size:20px; margin:30px 0 8px; color:#fff; }
+  h2 span { color:#FF7A45; }
+  p, li { color:#c9d1ce; font-size:16px; }
+  ul { padding-left:20px; }
+  .karte { background:#171d1c; border-radius:18px; padding:16px 18px; margin:14px 0; }
+  .hinweis { border-left:4px solid #7FE0C0; }
+  .platz { background:#3a2a1f; color:#FFB08F; padding:1px 6px; border-radius:6px; }
+  a { color:#7FE0C0; }
+  .fuss { margin-top:40px; color:#7d8784; font-size:14px; }
+</style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/bilder/favicon-32.png">
+<link rel="apple-touch-icon" href="/bilder/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="HEATS">
+</head>
+<body>
+<div class="seite" style="text-align:center">
+<a class="kopf" style="justify-content:center" href="https://heats-app.de"><div class="bahnen"><span style="background:#FF7A45"></span><span style="background:#7FE0C0"></span><span style="background:#A99BFF"></span></div><div class="logo">HE<b>A</b>TS</div></a>
+<div id="ok"><div style="font-size:64px">🎉</div><h1>Willkommen in der HEATS Flat!</h1><p>Deine Zahlung hat geklappt. Ab sofort kannst du bei so vielen Treffen mitmachen, wie du willst.</p><p class="stand">Die Rechnung und den Link zum Kündigen bekommst du per E-Mail.</p></div>
+<div id="ab" style="display:none"><div style="font-size:64px">👋</div><h1>Kein Problem</h1><p>Die Zahlung wurde abgebrochen – es wurde nichts abgebucht. Du kannst die Flat jederzeit in der App holen.</p></div>
+<p class="fuss">Du kannst dieses Fenster jetzt schließen und zur HEATS-App zurückkehren.</p>
+</div>
+<script>if(/abgebrochen/.test(location.search)){document.getElementById("ok").style.display="none";document.getElementById("ab").style.display="block";}</script>
+</body>
+</html>
