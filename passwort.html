@@ -28,7 +28,7 @@ button{width:100%;padding:16px;border:none;border-radius:30px;background:#FF7A45
 <h1>HE<b>A</b>TS</h1>
 <p class="slogan">Sport zusammen. In deiner Stadt.</p>
 <div class="karte">
-<h2>🔑 Neues Passwort</h2>
+<h2>Neues Passwort</h2>
 <input id="pw1" type="password" placeholder="Neues Passwort (mind. 8 Zeichen, Buchstaben + Zahl)">
 <input id="pw2" type="password" placeholder="Passwort wiederholen">
 <button id="knopf">Passwort speichern</button>
@@ -49,7 +49,7 @@ document.getElementById("knopf").onclick = async () => {
   const { data } = await sb.auth.getSession();
   if (!data.session) { info.textContent = "Link abgelaufen. Bitte in der App nochmal „Passwort vergessen?“ tippen."; return; }
   const { error } = await sb.auth.updateUser({ password: p1 });
-  info.textContent = error ? "Fehler: " + error.message : "✅ Gespeichert! Öffne die HEATS-App und melde dich mit dem neuen Passwort an.";
+  info.textContent = error ? "Fehler: " + error.message : "Gespeichert! Öffne die HEATS-App und melde dich mit dem neuen Passwort an.";
 };
 </script>
 </body>
